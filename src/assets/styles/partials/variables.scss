@@ -1,0 +1,39 @@
+$c-white: white;
+$c-black: black;
+$c-black-op-max: rgba(0, 0, 0, 0.689);
+$c-black-op-med: rgba(0, 0, 0, 0.5);
+$c-black-op-min: rgba(0, 0, 0, 0.2);
+$c-black-op-none: rgba(0, 0, 0, 0);
+$c-white-op-max: rgba(255, 255, 255, 0.738);
+$c-white-op-med: rgba(255, 255, 255, 0.5);
+$c-red: red;
+$c-aside: rgba(0, 0, 0, 0.98);
+$c-b-footer: rgba(8, 8, 8, 0.98);
+
+
+///**MIXIN**///
+@mixin dfc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin dfa {
+    display: flex;
+    align-items: center;
+}
+@mixin dfj {
+    display: flex;
+    justify-content: center;
+}
+
+///**display-width-responsive**///
+$med-disp: 700px;
+$min-disp: 450px;
+
+
+///**font-sizing**///
+$fs-title-max: 7.1rem;
+$fs-title-med: 6rem;
+$fs-title-med-s: 4.5rem;
+$fs-title-min: 4rem;
+$fs-title-min-s: 3.4rem;

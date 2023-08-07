@@ -1,0 +1,289 @@
+
+<script >
+  import {state} from '../state.js';
+
+ export default{
+  data(){
+    return{
+      state,
+    }
+  },
+  methods: {
+        openSide(){
+            if(this.state.sideMenuValue == 0){
+                this.state.sideMenuValue = 1;
+            }else{
+                this.state.sideMenuValue = 0;
+            }
+        },
+    }
+ }
+</script>
+
+
+<template>
+  <div class="header">
+
+    <div class="jumbo">
+        <div class="title">
+            <div class="fr-title">Capriccio</div>
+            <div class="sc-title">di Leo</div>
+  
+        </div>
+        <div class="side-menu">
+          <p class="special"><span> <router-link :to="{ name: 'menu' }" class="nav-link active " >Menu</router-link> </span></p>
+            <p><span> <router-link :to="{ name: 'home' }" class="nav-link active" >home</router-link> </span></p>
+            <p><span> <router-link :to="{ name: 'chi-siamo' }" class="nav-link active" >chi siamo?</router-link> </span></p>
+            <p><span> <router-link :to="{ name: 'contatti' }" class="nav-link active" >contatti</router-link> </span></p>
+        </div>
+        <label for="burger" class="burger">
+            <input @click="openSide" id="burger" type="checkbox">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+  </div>
+      <div class="aside-m"
+            :class="state.sideMenuValue ?  'aside-tel-on' : 'aside-tel-off'">
+              <span> <router-link :to="{ name: 'menu' }" class="nav-link active " >menu</router-link> </span>
+              <span> <router-link :to="{ name: 'home' }" class="nav-link active" >home</router-link> </span>
+              <span> <router-link :to="{ name: 'chi-siamo' }" class="nav-link active" >chi siamo?</router-link> </span>
+              <span> <router-link :to="{ name: 'contatti' }" class="nav-link active" >contatti</router-link> </span>
+            </div>
+        </div>
+</template>
+
+<style lang="scss" scoped>
+@use '../assets/styles/general.scss' as *;
+.special{
+  background-color: rgba(230, 18, 18, 0.225)!important;
+}
+.active{
+  cursor: pointer;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.header{
+  max-width: 100%;
+}
+.jumbo{
+color: $c-white;
+display: flex;
+justify-content: space-between;
+margin-bottom: 20px;
+font-size: $fs-title-max;
+font-weight: bolder;  
+gap: 3rem; 
+    .title{
+    text-shadow: 3px 4px 5px $c-black;
+    }       
+    .burger{
+    display: none;
+    margin-top: 10px;
+    }
+}
+
+
+.side-menu {
+font-size:13px;
+width: 230px;
+aspect-ratio: 1;
+border-radius: 4px;
+background: $c-black-op-min;
+display: flex;
+gap: 5px;
+padding: .4em;
+}
+
+.side-menu p {
+height: 100%;
+flex: 1;
+overflow: hidden;
+border-radius: 2px;
+transition: all .5s;
+background: $c-black-op-min;
+border: 1px solid white;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.side-menu p:hover {
+flex: 4;
+}
+
+.side-menu p span {
+min-width: 14em;
+padding: .5em;
+text-align: center;
+transform: rotate(-90deg);
+transition: all .5s;
+text-transform: uppercase;
+letter-spacing: .4em;
+}
+.side-menu a{
+color: $c-white;
+}
+.side-menu p:hover span {
+transform: rotate(0);
+letter-spacing: .0em;
+}
+.side-menu p span:hover{
+  text-shadow: 0 3px 5px $c-white;
+}
+.aside-tel-off{
+    transition: all linear 1s;
+    display: none;
+}
+.aside-tel-on{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    height: 100%;
+    width: 60%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 2rem;
+    background-color: $c-aside;
+    box-shadow: -10px 0px 300px 130px $c-black;
+    text-transform: uppercase;
+    font-size: 20px;
+    z-index: 100!important;
+    .nav-link{
+      color: $c-white!important;
+    }
+}
+.burger {
+  position: fixed;
+  right: 2rem;
+  top:  2rem;
+  width: 30px;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+  z-index: 1500;
+}
+
+.burger input {
+  display: none;
+}
+
+.burger span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: $c-white;
+  border-radius: 9px;
+  box-shadow: 2px 2px 2px black;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.burger span:nth-of-type(1) {
+  top: 0px;
+  transform-origin: left center;
+}
+
+.burger span:nth-of-type(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: left center;
+}
+
+.burger span:nth-of-type(3) {
+  top: 100%;
+  transform-origin: left center;
+  transform: translateY(-50%);
+}
+
+.burger input:checked ~ span:nth-of-type(1) {
+  top: 0;
+  left: 5px;
+  transform: rotate(405deg);
+}
+
+.burger input:checked ~ span:nth-of-type(2) {
+  width: 0%;
+  opacity: 0;
+}
+
+.burger input:checked ~ span:nth-of-type(3) {
+  top: 28px;
+  left: 5px;
+  transform: rotate(-405deg);
+}
+
+@media (max-width:950px) {
+    //menu hamburger
+
+    .title{
+            margin-bottom: 10%;
+            .fr-title, .sc-title{
+                font-size: $fs-title-med;
+
+            }
+          }
+    .side-menu{
+                height: 200px;
+
+    
+            }
+}
+@media (max-width:790px) {
+    //menu hamburger
+    .side-menu{
+                display: none;
+                
+            }
+
+    .burger{
+                display: inline-block !important;
+            }
+    .aside-tel{
+                display: block !important;
+            }
+    .title{
+            margin-bottom: 8%;
+            .fr-title, .sc-title{
+                font-size: $fs-title-med-s;
+
+            }
+        }
+    .main-home{
+        flex-direction: column;
+    }
+}
+@media (max-width:500px) {
+    .title{
+            margin-bottom: 5%;
+            .fr-title, .sc-title{
+                font-size: $fs-title-min;
+                
+            }
+            
+        }
+}
+@media (max-width:460px) {
+    .title{
+            margin-bottom: 0%;
+            .fr-title, .sc-title{
+                font-size: $fs-title-min-s;
+                
+            }
+            
+        }
+}
+
+@media (max-width:700px) {
+//menu hamburger
+}
+@media (max-width:500px) {
+}
+@media (max-width:460px) {
+}
+</style>
