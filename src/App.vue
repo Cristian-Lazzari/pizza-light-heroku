@@ -39,7 +39,7 @@ body{
   -moz-background-size: cover;
   -o-background-size: cover;
 
-  background-position: center;
+  background-position: center bottom;
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: $c-white;
@@ -49,7 +49,7 @@ body{
       @include dfj;
       flex-direction: column;
       gap: 1rem;    
-      padding: 1rem;
+      padding-top: 1rem;
       margin: 0 auto;
       max-width: 1150px;
     }
