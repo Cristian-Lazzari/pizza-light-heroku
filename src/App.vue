@@ -58,7 +58,7 @@ body{
 
   .app{
 
-    background-size: 100% 100vh!important;
+    background-size: 100vh!important;
   }
 }
 </style>
