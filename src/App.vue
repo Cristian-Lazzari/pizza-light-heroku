@@ -33,7 +33,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-2.png');
+  background-image: url('./assets/img/pizza-5.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

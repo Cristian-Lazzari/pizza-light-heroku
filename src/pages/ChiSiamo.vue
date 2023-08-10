@@ -114,9 +114,12 @@
 @media (max-width:550px) {
   .post{
     align-items: flex-start!important;
+    .text-post{
+      width: 30%;
+    }
 
     img{
-      width: 200px!important;
+      width: 190px!important;
     }
   }
 
@@ -126,7 +129,7 @@
   .post{
     flex-direction: column!important;
     img{
-      width: 200px!important;
+      width: 190px!important;
     }
   }
 

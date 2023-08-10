@@ -107,7 +107,7 @@
       align-items: flex-start;
       gap: 1rem;
       width: 350px;
-      background-color: rgba(29, 24, 24, 0.426);
+      background-color: rgba(29, 24, 24, 0.637);
       padding: 5px;
       border-radius: 10px;
       z-index: 1!important;
