@@ -5,43 +5,43 @@ export const state = reactive({
     fakemenu: [
         [
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'LA REGINA',  
                 ingredienti: 'pomodoro, mozzarella di bufala campana, pesto della casa' ,
                 prezzo:'8,00€'
             },
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'PARMIGIANA',  
                 ingredienti: 'pomodoro, mozzarella fior di latte, melanzane grigliate, parmigiano, pesto della casa' ,
                 prezzo:'8,00€'
             },
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'TRENTINA',  
                 ingredienti: 'mozzarella fior di latte, rucola, carne salada trentina, scaglie di grana' ,
                 prezzo:'8,00€'
             },
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'AMATRICIANA',  
                 ingredienti: 'mozzarella fior di latte, salsiccia e pecorino su passata di pomodoro cotta con ventricina piccante, pancetta marchigiana e salsa di peperoncini freschi' ,
                 prezzo:'8,00€'
             },
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'ACCIUGA',  
                 ingredienti: 'pomodoro, mozzarella di bufala campana, acciughe del mar cantabrico, foglie del cappero, origano' ,
                 prezzo:'8,00€'
             },
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'ARROSTINO',  
                 ingredienti: 'mozzarella fior di latte, stracciatella, rucola, arrosto di tacchino in porchetta marchigiano' ,
                 prezzo:'8,00€'
             },
             {
-                img: './src/assets/img/pizza-alto.png',
+                img: '../assets/img/pizza-alto.png',
                 titolo: 'BRONTESE',  
                 ingredienti: 'mozzarella fior di latte, stracciatella di burrata, mortadella, granella di pistacchi e pesto di pistacchi della casa' ,
                 prezzo:'8,00€'
