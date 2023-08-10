@@ -26,18 +26,32 @@
 body{
   background-color: black;
 }
-
+  .app:before {
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background: url('./assets/img/pizza-5.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 
   .app{    
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-5.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  // background-image: url('./assets/img/pizza-5.png');
+  // background-size: cover;
+  // background-position: center;
+  // background-attachment: fixed;
+  // background-repeat: no-repeat;
   color: $c-white;
 
   .small-cont{
