@@ -55,7 +55,7 @@ body{
     }
   }
 
-@media (max-width:700px) {
+@media (max-width:750px) {
 
   .app{
     background-size: 100% 100vh!important;
