@@ -33,30 +33,31 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-2.png');
+  background-image: url('./assets/img/pizza-5.png');
+  background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size:  100vh!important;
   color: $c-white;
-
+  
   .small-cont{
     min-height: 85vh;
-      @include dfj;
-      flex-direction: column;
-      gap: 1rem;    
-      padding: 1rem;
-      margin: 0 auto;
-      max-width: 1150px;
-    }
+    @include dfj;
+    flex-direction: column;
+    gap: 1rem;    
+    padding: 1rem;
+    margin: 0 auto;
+    max-width: 1150px;
   }
+}
 
-@media (max-width:700px) {
-
+@media (max-width:650px) {
+  
   .app{
+    background-size:  100vh!important;
 
     
   }
