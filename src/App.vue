@@ -33,7 +33,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-5.png');
+  background-image: url('./assets/img/pizza-2.png');
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -54,7 +54,7 @@ body{
   }
 }
 
-@media (max-width:650px) {
+@media (max-width:700px) {
   
   .app{
     background-size:  100vh!important;
