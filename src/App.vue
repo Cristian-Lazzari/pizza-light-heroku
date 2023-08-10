@@ -38,6 +38,7 @@ body{
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -57,8 +58,8 @@ body{
 @media (max-width:700px) {
 
   .app{
-
     background-size: 100vh!important;
+    
   }
 }
 </style>
