@@ -33,14 +33,14 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-5.png');
-  background-size: cover;
+  background-image: url('./assets/img/pizza-2.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  background-size:  100vh!important;
   color: $c-white;
 
   .small-cont{
@@ -58,7 +58,7 @@ body{
 
   .app{
 
-    background-size:  100vh!important;
+    
   }
 }
 </style>
