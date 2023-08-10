@@ -54,6 +54,23 @@ body{
     }
   }
 
-
-
+@media (max-width:700px) {
+    html::before {
+      content: ' ';
+      display: block;
+      background-image: url('./assets/img/pizza-5.png');
+      background-position: center; 
+      
+      background-size: cover;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: fixed;
+      z-index: -10; 
+  }
+  .app{
+    background-image: none!important;
+  }
+}
 </style>
