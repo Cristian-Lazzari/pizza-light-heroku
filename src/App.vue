@@ -33,7 +33,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-3.png');
+  background-image: url('./assets/img/pizza-4.png');
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -55,12 +55,32 @@ body{
     }
   }
 
-@media (max-width:650px) {
+// @media (max-width:650px) {
 
-  .app{
-    background-size: 100% 100vh!important;
+//   .app{
+//     background-size: 100% 100vh!important;
     
-  }
+//   }
   
+//}
+
+@media (max-width:700px) {
+    html::before {
+      content: ' ';
+      display: block;
+      background-image: url('./assets/img/pizza-5.png');
+      background-position: center; 
+      
+      background-size: cover;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: fixed;
+      z-index: -10; 
+  }
+  .app{
+    background-image: none!important;
+  }
 }
 </style>
