@@ -26,7 +26,7 @@
       </div>    
       <div class="contact">
         <div class="cnt-name">telefono</div>
-        <div class="cnt">3333444455</div>
+        <a href="tel:+393334422266" class="cnt">+39 3334422266</a>
       </div>    
     </div>
 
@@ -63,6 +63,7 @@ img{
     color: $c-white;
     width: 320px;
     text-align: center;
+    font-size: 90%;
     .cnt-name{
       width: 30%;
       border-right: 2px solid $c-white;
@@ -72,6 +73,7 @@ img{
       
     }
     .cnt{
+      color: $c-white;
       width: 70%;
       background-color: $c-black-op-med;
       padding: .5em;
@@ -84,5 +86,5 @@ img{
   flex-direction: column;
   gap: 1rem;
 }
-  
+
 </style>

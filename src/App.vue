@@ -64,11 +64,11 @@ body{
   
 //}
 
-@media (max-width:950px) {
+@media (max-width:2950px) {
     html::before {
       content: ' ';
       display: block;
-      background-image: url('./assets/img/pizza-5.png');
+      background-image: url('./assets/img/pizza-4.png');
       background-position: center; 
       
       background-size: cover;
