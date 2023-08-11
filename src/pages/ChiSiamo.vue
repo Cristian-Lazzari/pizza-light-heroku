@@ -124,18 +124,18 @@
 @media (max-width:650px) {
   .main-about{
     width: 100%;
-    padding: 1em;
+
   }
   .row{
     flex-direction: column;
 
   }
   .header-section{
-    width: 80%!important;
+    width: 100%!important;
   }
   img{
         flex: 0 0 auto;
-        width: 80%!important;
+        width: 100%!important;
   }
   .main-about .post:nth-child(even){
     .row{
