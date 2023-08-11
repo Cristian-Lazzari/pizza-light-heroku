@@ -31,10 +31,10 @@
   
         </div>
         <div class="side-menu">
-          <p class="special"><span> <router-link :to="{ name: 'menu' }" class="nav-link active " >Menu</router-link> </span></p>
-            <p><span> <router-link :to="{ name: 'home' }" class="nav-link active" >home</router-link> </span></p>
-            <p><span> <router-link :to="{ name: 'chi-siamo' }" class="nav-link active" >chi siamo?</router-link> </span></p>
-            <p><span> <router-link :to="{ name: 'contatti' }" class="nav-link active" >contatti</router-link> </span></p>
+          <p class="special"><span> <router-link :to="{ name: 'menu' }" class="nav-link active active-p" >Menu</router-link> </span></p>
+            <p><span> <router-link :to="{ name: 'home' }" class="nav-link active active-p" >home</router-link> </span></p>
+            <p><span> <router-link :to="{ name: 'chi-siamo' }" class="nav-link active active-p" >chi siamo?</router-link> </span></p>
+            <p><span> <router-link :to="{ name: 'contatti' }" class="nav-link active active-p" >contatti</router-link> </span></p>
         </div>
         <label for="burger" class="burger">
             <input @click="openSide" id="burger" type="checkbox">
@@ -58,10 +58,10 @@
 .special{
   background-color: rgba(230, 18, 18, 0.225)!important;
 }
-.active{
+.active-p{
   cursor: pointer;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 .header{
   max-width: 100%;
@@ -129,7 +129,7 @@ transform: rotate(0);
 letter-spacing: .0em;
 }
 .side-menu p span:hover{
-  text-shadow: 0 3px 5px $c-white;
+  text-shadow: 0 7px 25px $c-white;
 }
 .aside-tel-off{
     transition: all linear 1s;

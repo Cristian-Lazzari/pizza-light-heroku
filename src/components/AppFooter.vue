@@ -123,7 +123,7 @@
 .on{
   display: block !important;
   opacity: .7;
-  font-size: 10px;
+  font-size: 12px;
   .clock, img{
     scale: .9;
   }
@@ -145,6 +145,7 @@
   width: 100%;
   padding: 1rem;
   z-index: 1610;
+
 }
 .footer-off{
   display: none
