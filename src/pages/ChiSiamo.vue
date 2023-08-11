@@ -61,6 +61,7 @@
 .about{
 
   text-align: center;
+  padding: 1em;
 
 
   .main-about{

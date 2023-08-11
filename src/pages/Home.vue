@@ -36,6 +36,7 @@
     display: grid;
     grid-template-columns: 2fr 1.5fr;
     gap: 1.5rem;
+    padding: 1em;
 }
     
 .par{
