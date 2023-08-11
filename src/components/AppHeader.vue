@@ -65,7 +65,7 @@
 }
 .header{
   max-width: 100%;
-  padding: 3px;
+  padding: 1em;
 }
 .jumbo{
 color: $c-white;
