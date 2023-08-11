@@ -92,7 +92,7 @@
       @include dfc;
       flex-direction: column;
       gap: 1em;
-      padding-bottom: 2em;
+      padding-bottom: 3em;
       .row{
         @include dfc;
         flex-wrap: wrap;
@@ -122,12 +122,20 @@
 }
 
 @media (max-width:650px) {
+  .main-about{
+    width: 100%;
+    padding: 1em;
+  }
   .row{
     flex-direction: column;
+
+  }
+  .header-section{
+    width: 80%!important;
   }
   img{
         flex: 0 0 auto;
-        width: 50%!important;
+        width: 80%!important;
   }
   .main-about .post:nth-child(even){
     .row{
