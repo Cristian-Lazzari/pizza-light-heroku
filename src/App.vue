@@ -39,13 +39,13 @@ body{
   -moz-background-size: cover;
   -o-background-size: cover;
 
-  background-position: center bottom;
+  background-position: center ;
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: $c-white;
 
   .small-cont{
-    min-height: 85vh;
+      min-height: 85vh;
       @include dfj;
       flex-direction: column;
       gap: 1rem;    
