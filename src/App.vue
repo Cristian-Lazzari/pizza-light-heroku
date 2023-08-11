@@ -39,7 +39,7 @@ body{
   -moz-background-size: cover;
   -o-background-size: cover;
 
-  background-position: center ;
+  background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: $c-white;
@@ -58,7 +58,7 @@ body{
 @media (max-width:650px) {
 
   .app{
-    background-size: 110% 100vh!important;
+    background-size: 100vh!important;
     
   }
   
