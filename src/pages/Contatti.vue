@@ -51,8 +51,7 @@ img{
   @include dfc;
   flex-direction: column;
   gap: 1.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem
+  padding: 1em;
 }
 .cnt-container{
   @include dfc;
