@@ -29,7 +29,7 @@
       :key="index"
       v-for="(item, index) in state.fakemenu[0]"
       >
-          <img class="img" :src="item.img" >
+          <img class="img" src="../assets/img/pizza-alto.png">
           <div class="text-c">
             <div class="title">{{item.titolo}}</div>
             <div class="sub-title">INGREDIENTI</div>
@@ -47,7 +47,7 @@
       :key="index"
       v-for="(item, index) in state.fakemenu[1]"
       >
-          <img class="img" :src="item.img"  v-bind:alt="item.img">
+          <img class="img" src="../assets/img/pizza-alto.png">
           <div class="text-c">
             <div class="title">{{item.titolo}}</div>
             <div class="sub-title">INGREDIENTI</div>
@@ -65,7 +65,7 @@
       :key="index"
       v-for="(item, index) in state.fakemenu[2]"
       >
-          <img class="img" :src="item.img" >
+          <img class="img" src="../assets/img/pizza-alto.png">
           <div class="text-c">
             <div class="title">{{item.titolo}}</div>
             <div class="sub-title">INGREDIENTI</div>

@@ -91,6 +91,9 @@ color: $c-white;
 color: black;
 }
 
+@media (max-width:790px)  {
+    
+}
 @media (max-width:590px) {
     //menu hamburger
 .main-home{
