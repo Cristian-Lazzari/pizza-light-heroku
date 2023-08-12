@@ -71,6 +71,8 @@ background-color: transparent;
 color: $c-white;
 font-weight: bold;
 font-size: 16px;
+white-space: nowrap;
+transition: all cubic-bezier(0.075, 0.82, 0.165, 1) .5s;
 }
 .btn-1, .btn-2{
     align-self: flex-end;
@@ -83,7 +85,7 @@ color: $c-white;
 }
 
 .btn:hover {
-transform: scale(1.2) rotate(10deg);
+transform: scale(1.1) rotate(6deg);
 background-color: $c-white;
 color: $c-white;
 }
@@ -92,7 +94,14 @@ color: black;
 }
 
 @media (max-width:790px)  {
-    
+    .btn:hover {
+transform: scale(1) rotate(0deg) !important;
+background-color: transparent!important;
+color: $c-black!important;
+}
+.btn:hover a{
+color: $c-white!important;
+}
 }
 @media (max-width:590px) {
     //menu hamburger
