@@ -133,10 +133,14 @@ letter-spacing: .0em;
   text-shadow: 0 7px 25px $c-white;
 }
 .aside-tel-off{
-    transition: all linear 1s;
-    display: none;
-}
-.aside-tel-on{
+    transition: all linear .3s;
+    width: 0!important;
+    span{
+      display: none;
+    }
+  }
+  .aside-tel-on{
+  transition: all linear .3s;
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
@@ -155,69 +159,71 @@ letter-spacing: .0em;
       color: $c-white!important;
     }
 }
-.burger {
-  position: fixed;
-  right: 2rem;
-  top:  2rem;
-  width: 30px;
-  height: 20px;
-  background: transparent;
-  cursor: pointer;
-  display: block;
-  z-index: 1500;
-}
 
-.burger input {
-  display: none;
-}
 
-.burger span {
-  display: block;
-  position: absolute;
-  height: 4px;
-  width: 100%;
-  background: $c-white;
-  border-radius: 9px;
-  box-shadow: 2px 2px 2px black;
-  opacity: 1;
-  left: 0;
-  transform: rotate(0deg);
-  transition: .25s ease-in-out;
-}
+      .burger {
+        position: fixed;
+        right: 2rem;
+        top:  2rem;
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        cursor: pointer;
+        display: block;
+        z-index: 1500;
+      }
 
-.burger span:nth-of-type(1) {
-  top: 0px;
-  transform-origin: left center;
-}
+      .burger input {
+        display: none;
+      }
 
-.burger span:nth-of-type(2) {
-  top: 50%;
-  transform: translateY(-50%);
-  transform-origin: left center;
-}
+      .burger span {
+        display: block;
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        background: $c-white;
+        border-radius: 9px;
+        box-shadow: 2px 2px 2px black;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: .25s ease-in-out;
+      }
 
-.burger span:nth-of-type(3) {
-  top: 100%;
-  transform-origin: left center;
-  transform: translateY(-50%);
-}
+      .burger span:nth-of-type(1) {
+        top: 0px;
+        transform-origin: left center;
+      }
 
-.burger input:checked ~ span:nth-of-type(1) {
-  top: 0;
-  left: 5px;
-  transform: rotate(405deg);
-}
+      .burger span:nth-of-type(2) {
+        top: 50%;
+        transform: translateY(-50%);
+        transform-origin: left center;
+      }
 
-.burger input:checked ~ span:nth-of-type(2) {
-  width: 0%;
-  opacity: 0;
-}
+      .burger span:nth-of-type(3) {
+        top: 100%;
+        transform-origin: left center;
+        transform: translateY(-50%);
+      }
 
-.burger input:checked ~ span:nth-of-type(3) {
-  top: 28px;
-  left: 5px;
-  transform: rotate(-405deg);
-}
+      .burger input:checked ~ span:nth-of-type(1) {
+        top: 0;
+        left: 5px;
+        transform: rotate(405deg);
+      }
+
+      .burger input:checked ~ span:nth-of-type(2) {
+        width: 0%;
+        opacity: 0;
+      }
+
+      .burger input:checked ~ span:nth-of-type(3) {
+        top: 28px;
+        left: 5px;
+        transform: rotate(-405deg);
+      }
 
 @media (max-width:950px) {
     //menu hamburger

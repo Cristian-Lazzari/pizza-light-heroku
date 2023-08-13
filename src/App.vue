@@ -48,7 +48,7 @@ body{
       min-height: 85vh;
       @include dfj;
       flex-direction: column;
-      gap: 1rem;    
+      gap: .3em;    
       padding-top: 1rem;
       margin: 0 auto;
       max-width: 1150px;
