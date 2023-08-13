@@ -238,6 +238,13 @@
   }
  
 }
+@media (max-width:520px) {
+  .menu{
+    width: 410px;
+    margin: 0 auto;
+  }
+ 
+}
 @media (max-width:410px) {
   .menu{
     width: 320px;
