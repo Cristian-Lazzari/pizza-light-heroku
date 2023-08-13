@@ -269,6 +269,11 @@ letter-spacing: .0em;
             }
             
         }
+      .burger-on{
+        top: 1.7rem ;
+        bottom: 1.7rem;
+      }
+
 }
 @media (max-width:460px) {
     .title{
