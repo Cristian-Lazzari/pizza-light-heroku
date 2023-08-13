@@ -33,7 +33,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-4.png');
+  background-image: url('./assets/img/pizza-espansa.png');
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -64,11 +64,11 @@ body{
   
 //}
 
-@media (max-width:2950px) {
+@media (max-width:1000px) {
     html::before {
       content: ' ';
       display: block;
-      background-image: url('./assets/img/pizza-espansa.png');
+      background-image: url('./assets/img/pizza-olio.png');
       background-position: center; 
       
       background-size: cover;
