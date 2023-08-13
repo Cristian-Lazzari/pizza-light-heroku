@@ -270,7 +270,7 @@ letter-spacing: .0em;
             
         }
       .burger-on{
-        top: 1.7rem ;
+        top: 3.5rem ;
         bottom: 1.7rem;
       }
 
