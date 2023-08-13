@@ -41,7 +41,7 @@
             <span id="s-2"></span>
             <span id="s-3"></span>
         </div>
-  </div>
+    </div>
       <div class="aside-m"
             :class="state.sideMenuValue ?  'aside-tel-on' : 'aside-tel-off'">
               <span @click="openSide"> <router-link :to="{ name: 'home' }" class="nav-link active" >home</router-link> </span>
@@ -63,12 +63,12 @@
   padding-bottom: 4.5rem;
 }
 .header{
-  max-width: 100%;
   padding: 1em;
 }
 .jumbo{
 color: $c-white;
 display: flex;
+width: 100%;
 justify-content: space-between;
 margin-bottom: 20px;
 font-size: $fs-title-max;
@@ -261,6 +261,9 @@ letter-spacing: .0em;
     }
 }
 @media (max-width:500px) {
+  .header{
+    width: 100vw;
+  }
     .title{
             margin-bottom: 5%;
             .fr-title, .sc-title{
