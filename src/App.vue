@@ -68,7 +68,7 @@ body{
     html::before {
       content: ' ';
       display: block;
-      background-image: url('./assets/img/pizza-4.png');
+      background-image: url('./assets/img/pizza-espansa.png');
       background-position: center; 
       
       background-size: cover;
