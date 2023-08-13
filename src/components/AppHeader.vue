@@ -133,14 +133,15 @@ letter-spacing: .0em;
   text-shadow: 0 7px 25px $c-white;
 }
 .aside-tel-off{
-    transition: all linear .3s;
+    transition: all linear .2s;
     width: 0!important;
+    height: 100%;
     span{
       display: none;
     }
   }
   .aside-tel-on{
-  transition: all linear .3s;
+  transition: all linear .2s;
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
