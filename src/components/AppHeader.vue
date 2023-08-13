@@ -36,12 +36,11 @@
             <p><span> <router-link :to="{ name: 'chi-siamo' }" class="nav-link active active-p" >chi siamo?</router-link> </span></p>
             <p><span> <router-link :to="{ name: 'contatti' }" class="nav-link active active-p" >contatti</router-link> </span></p>
         </div>
-        <label for="burger" class="burger">
-            <input @click="openSide" id="burger" type="checkbox">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
+        <div @click="openSide" :class="state.sideMenuValue ?  'burger-off' : 'burger-on'">
+            <span id="s-1"></span>
+            <span id="s-2"></span>
+            <span id="s-3"></span>
+        </div>
   </div>
       <div class="aside-m"
             :class="state.sideMenuValue ?  'aside-tel-on' : 'aside-tel-off'">
@@ -162,69 +161,62 @@ letter-spacing: .0em;
 }
 
 
-      .burger {
+      .burger-on {
         position: fixed;
-        right: 2rem;
-        top:  2rem;
+        right: 2.5rem;
+        top:  3.5rem;
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        cursor: pointer;
+        display: none;
+        z-index: 1500;
+        span{
+          display: block;
+          height: 4px;
+          width: 30px;
+          border-radius: 2px;
+          background-color: $c-white;
+          margin-bottom: 5px;
+          transition: all linear .2s;
+        }
+      }
+      .burger-off{
+        position: fixed;
+        right: 2.5rem;
+        top:  2.5rem;
         width: 30px;
         height: 30px;
         background: transparent;
         cursor: pointer;
         display: block;
         z-index: 1500;
+        span{
+          transition: all linear .2s;
+          display: block;
+          height: 4px;
+          width: 30px;
+          border-radius: 2px;
+          background-color: $c-white;
+
+        }
+        #s-1{
+          transform:rotateZ(230deg);
+          position: absolute;
+          top: 0;
+        }
+        #s-2{
+          transform:rotateZ(-50deg);
+        }
+        #s-3{
+          transform:rotateZ(-50deg);
+          position: absolute;
+          top: 0
+        }
       }
 
-      .burger input {
-        display: none;
-      }
 
-      .burger span {
-        display: block;
-        position: absolute;
-        height: 4px;
-        width: 100%;
-        background: $c-white;
-        border-radius: 9px;
-        box-shadow: 2px 2px 2px black;
-        opacity: 1;
-        left: 0;
-        transform: rotate(0deg);
-        transition: .25s ease-in-out;
-      }
-
-      .burger span:nth-of-type(1) {
-        top: 0px;
-        transform-origin: left center;
-      }
-
-      .burger span:nth-of-type(2) {
-        top: 50%;
-        transform: translateY(-50%);
-        transform-origin: left center;
-      }
-
-      .burger span:nth-of-type(3) {
-        top: 100%;
-        transform-origin: left center;
-        transform: translateY(-50%);
-      }
-
-      .burger input:checked ~ span:nth-of-type(1) {
-        top: 0;
-        left: 5px;
-        transform: rotate(405deg);
-      }
-
-      .burger input:checked ~ span:nth-of-type(2) {
-        width: 0%;
-        opacity: 0;
-      }
-
-      .burger input:checked ~ span:nth-of-type(3) {
-        top: 28px;
-        left: 5px;
-        transform: rotate(-405deg);
-      }
+    
 
 @media (max-width:950px) {
     //menu hamburger
@@ -249,7 +241,7 @@ letter-spacing: .0em;
                 
             }
 
-    .burger{
+    .burger-on{
                 display: inline-block !important;
             }
     .aside-tel{
