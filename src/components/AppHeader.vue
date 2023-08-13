@@ -172,6 +172,7 @@ letter-spacing: .0em;
         display: none;
         z-index: 1500;
         span{
+          box-shadow: 1px 1px 10px 2px rgb(127, 127, 127);
           display: block;
           height: 4px;
           width: 30px;
@@ -192,6 +193,7 @@ letter-spacing: .0em;
         display: block;
         z-index: 1500;
         span{
+          box-shadow: 1px 1px 3px 1px rgb(0, 0, 0);
           transition: all linear .2s;
           display: block;
           height: 4px;
@@ -201,15 +203,15 @@ letter-spacing: .0em;
 
         }
         #s-1{
-          transform:rotateZ(230deg);
+          transform:rotateZ(140deg);
           position: absolute;
           top: 0;
         }
         #s-2{
-          transform:rotateZ(-50deg);
+          transform:rotateZ(-140deg);
         }
         #s-3{
-          transform:rotateZ(-50deg);
+          transform:rotateZ(-140deg);
           position: absolute;
           top: 0
         }
