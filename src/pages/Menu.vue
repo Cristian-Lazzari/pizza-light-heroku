@@ -65,7 +65,7 @@
       :key="index"
       v-for="(item, index) in state.fakemenu[2]"
       >
-          <img class="img" src="../assets/img/pizza-alto.png">
+          <img class="img" src="">
           <div class="text-c">
             <div class="title">{{item.titolo}}</div>
             <div class="sub-title">INGREDIENTI</div>
