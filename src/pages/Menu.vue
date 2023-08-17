@@ -1,5 +1,6 @@
 <script >
-  import {state} from '../state.js'
+  import {state} from '../state.js';
+  import axios from 'axios'
 
   export default {
   components:{  },
@@ -7,9 +8,28 @@
     data(){
         return{     
             state,
+            arrProduct:[],
+            arrPizzaSp:[],
+            arrPizzaR:[],
+            arrPizzaB:[],
         }
     },
-    
+    methods:{
+      getProduct(){
+        axios
+				.get(state.baseUrl + 'api/projects', {
+					params: {
+						category: this.categoryId,
+					},
+				})
+				.then(response => {
+					this.arrPizzaSp = response.data.results;
+				});
+      }
+    },
+    created(){
+      this.getProduct();
+    }
   }
 </script>
 
@@ -27,14 +47,14 @@
       <div
       class="product"
       :key="index"
-      v-for="(item, index) in state.fakemenu[0]"
+      v-for="(item, index) in arrPizzaSp"
       >
-          <img class="img" :src="item.img">
+          <img class="img" :src="state.getImageUrl(item.image)">
           <div class="text-c">
-            <div class="title">{{item.titolo}}</div>
+            <div class="title">{{item.name}}</div>
             <div class="sub-title">INGREDIENTI</div>
             <div class="text">({{ item.ingredienti }})</div>
-            <div class="price">{{ item.prezzo }}</div>
+            <div class="price">TODO€</div>
           </div>
       </div>
     </div>
@@ -47,7 +67,7 @@
       :key="index"
       v-for="(item, index) in state.fakemenu[1]"
       >
-          <img class="img" src="../../public/pizza-alto.png">
+          <img class="img" src="../assets/img/pizza-alto.png">
           <div class="text-c">
             <div class="title">{{item.titolo}}</div>
             <div class="sub-title">INGREDIENTI</div>
@@ -65,7 +85,7 @@
       :key="index"
       v-for="(item, index) in state.fakemenu[2]"
       >
-          <img class="img" src="">
+          <img class="img" src="../assets/img/pizza-alto.png">
           <div class="text-c">
             <div class="title">{{item.titolo}}</div>
             <div class="sub-title">INGREDIENTI</div>

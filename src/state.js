@@ -2,6 +2,12 @@ import { reactive } from 'vue';
 
 export const state = reactive({
     sideMenuValue: 0,
+    baseUrl: 'http://127.0.0.1:8000/',
+    getImageUrl(image) {
+		return image
+			? this.baseUrl + 'storage/' + image
+			: this.baseUrl + 'storage/default.jpg';
+	},
     fakemenu: [
         [
             {
