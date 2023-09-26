@@ -2,11 +2,15 @@ import { reactive } from 'vue';
 
 export const state = reactive({
     sideMenuValue: 0,
+    sideCartValue: 0,
+    arrCart:[],
+    arrId:[],
+    arrQt:[],
     baseUrl: 'http://127.0.0.1:8000/',
     getImageUrl(image) {
 		return image
 			? this.baseUrl + 'storage/' + image
-			: this.baseUrl + 'storage/default.jpg';
+			: this.baseUrl + 'storage/default.png';
 	},
     fakemenu: [
         [
@@ -110,7 +114,7 @@ export const state = reactive({
             {
                 img: '/src/assets/img/pizza-alto.png',
                 titolo: 'FORNARINA',  
-                ingredienti: 'cipolla o rospìmrino' ,
+                ingredienti: 'cipolla o rosmarino' ,
                 prezzo:'8,00€'
             },
             {

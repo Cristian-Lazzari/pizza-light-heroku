@@ -33,7 +33,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('./assets/img/pizza-2.png');
+  
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -68,7 +68,7 @@ body{
     html::before {
       content: ' ';
       display: block;
-      background-image: url('./assets/img/pizza-2.png');
+      background-image: url('./assets/img/pizza-1.png');
       background-position: center; 
       
       background-size: cover;

@@ -9,13 +9,13 @@
         return{     
             state,
             arrProduct:[],
-            arrPizzaSp:[],
-            arrPizzaR:[],
-            arrPizzaB:[],
+            arrCategory:[],
+            categoryId: 0,
         }
     },
     methods:{
-      getProduct(){
+      getProduct(cat){
+        this.categoryId = cat,
         axios
 				.get(state.baseUrl + 'api/projects', {
 					params: {
@@ -23,76 +23,68 @@
 					},
 				})
 				.then(response => {
-					this.arrPizzaSp = response.data.results;
+					this.arrProduct = response.data.results.data;
 				});
+      },
+      getCategory(){
+        axios
+				.get(state.baseUrl + 'api/categories', {})
+				.then(response => {
+					this.arrCategory = response.data.results;
+				});
+        this.arrCategory = this.arrCategory.shift()
+      },
+      changeCategory(value){
+
+        this.getProduct(value)
+      },
+      getPrice(cent){
+        let num = parseFloat(cent);
+        num = num / 100;
+        num = "€" + num  
+
+        return num
       }
+
     },
     created(){
-      this.getProduct();
-    }
+      this.getProduct(0);
+      this.getCategory();
+    },
+
   }
 </script>
 
 <template>
-
-
-
   <div class="menu">
+    <div class="top-menu">
+      <h1>Menu</h1>
+      <select name="category" class="category" @change="changeCategory(categoryId)" v-model="categoryId">
+        <option value="0">SCEGLI UNA CATEGORIA</option>
+        <option value="2">Pizze Speciali</option>
+        <option value="3">Pizze Rosse</option>
+        <option value="4">Pizze Bianche</option>
+        <option value="5">Dolci</option>
+        <option value="6">Bibite</option>
+      </select>
+    </div>
 
-    
-    <div class="categoria">
-      <a href="" >PIZZE SPECIALI</a>
-    </div>
-    <div class="product-cont">
-      <div
-      class="product"
-      :key="index"
-      v-for="(item, index) in arrPizzaSp"
-      >
-          <img class="img" :src="state.getImageUrl(item.image)">
-          <div class="text-c">
-            <div class="title">{{item.name}}</div>
-            <div class="sub-title">INGREDIENTI</div>
-            <div class="text">({{ item.ingredienti }})</div>
-            <div class="price">TODO€</div>
+    <div class="body-menu">
+
+      <div class="product" :key="item.id" v-for="item in arrProduct">
+        <div class="text-content">
+          <h2>{{ item.name }}</h2>
+
+          <div class="componenti">
+            <h5>Ingredienti:</h5>
+            <span v-for="item in item.tags" :key="item.id">{{ item.name + ' - ' }}</span>
           </div>
+
+        </div>
+        <img :src="state.getImageUrl(item.image)" alt="">
+        <div class="price">{{ getPrice(item.price) }}</div>
       </div>
-    </div>
-    <div class="categoria">
-      <a href="" >PIZZE ROSSE</a>
-    </div>
-    <div class="product-cont">
-      <div
-      class="product"
-      :key="index"
-      v-for="(item, index) in state.fakemenu[1]"
-      >
-          <img class="img" src="../assets/img/pizza-alto.png">
-          <div class="text-c">
-            <div class="title">{{item.titolo}}</div>
-            <div class="sub-title">INGREDIENTI</div>
-            <div class="text">({{ item.ingredienti }})</div>
-            <div class="price">{{ item.prezzo }}</div>
-          </div>
-      </div>
-    </div>
-    <div class="categoria">
-      <a href="" >PIZZE BIANCHE</a>
-    </div>
-    <div class="product-cont extended">
-      <div
-      class="product"
-      :key="index"
-      v-for="(item, index) in state.fakemenu[2]"
-      >
-          <img class="img" src="../assets/img/pizza-alto.png">
-          <div class="text-c">
-            <div class="title">{{item.titolo}}</div>
-            <div class="sub-title">INGREDIENTI</div>
-            <div class="text">({{ item.ingredienti }})</div>
-            <div class="price">{{ item.prezzo }}</div>
-          </div>
-      </div>
+
     </div>
 
 
@@ -103,189 +95,131 @@
 @use '../assets/styles/general.scss' as *;
 
 .menu{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 1150px;
   padding: 1em;
-
-}
-.extended{
-  height: 650px!important;
-}
-.product-cont{
-  max-width: 1150px;
-  width: 100%;
-  margin: 0 auto;
-  height:580px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 1rem;
-  z-index: 1!important;
-  .product{
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      width: 350px;
-      background-color: rgba(29, 24, 24, 0.637);
-      padding: 5px;
-      border-radius: 10px;
-      z-index: 1!important;
-      
-      .img{
-        align-self: center;
-        width: 129px;
-        height: 129px;
-        background-size: cover;
-        background-position: center;
-        border-radius: 220px;
-        border: 3px solid rgba(0, 0, 0, 0.435);
-        flex-shrink: 0;
-        
-      }
-      .text-c{
-        gap: .3em;
-        flex-shrink: 1;
-        color: $c-white;
-        @include dfj;
-        flex-direction: column;
-        text-shadow: 1.5px 1.5px 1.5px black;
-        .title{
-          font-size: 1.5em;
-          text-shadow: 3px 3px 3px black;
-        }
-        .sub-title, .text{
-          color: $c-white-op-max;
-        }
-      }
-    }
-    .product{
-     flex-direction: row-reverse;
-  }
-}
-
-.categoria{
-  font-size: 50px;
-  text-align: center;
-  width: 100%;
-  padding: 0rem;
-  margin-bottom: 1rem ;
-  a{
-    color: $c-white;
-    text-shadow: 1.5px 3.5px 5px black;
-
-  }
-}
-
-
-
-
-
-@media (max-width:1230px) {
-  
-  .menu{
+  .top-menu{
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: 920px;
-  }
-  .product-cont{
-    width: 720px;
-    height: 800px;
-  }
-  .extended{
-    height: 950px!important;
-  }
-
-}
-
-@media (max-width:980px) {
-  
-  .menu{
-    width: 730px;
-  }
-  .product-cont{
-    width: 720px;
-    height: 800px;
-  }
-
-
-}
-
-@media (max-width:810px) {
-  
-  .menu{
-    width: 720px;
-  }
-  .product-cont{
-    width: 700px;
-    height: 1100px;
-    .product{
-      flex-direction: column;
-      width: 180px;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    h1{
+      font-size: 3em;
+      text-shadow: 2px -3px 3px black;
     }
-  }
-  .extended{
-    height: 1500px!important;
-  }
-
-}
-@media (max-width:790px) {
-  .menu{
-    width: 600px;
-  }
-  .product-cont{
-    width: 550px;
-    height: 1150px;
-    .product{
-      width: 170px;
+    select{
+      border: 2px solid $c-white;
+      border-radius: 20px;
+      color: $c-white;
+      padding: 1em;
+      background-color: $c-red-op-med;
     }
-  }
- 
 
-}
-@media (max-width:650px) {
-  .menu{
-    width: 360px;
   }
-  .product-cont{
-    
-    width: 350px;
-    height: 1500px;
-  }
-  .extended{
-    height: 2000px!important;
-  }
- 
-}
-@media (max-width:520px) {
-  .menu{
-    width: 410px;
-    margin: 0 auto;
-  }
- 
-}
-@media (max-width:410px) {
-  .menu{
-    width: 320px;
-  }
-  .product-cont{
-    
-    width: 300px;
-    height: 1550px;
+  .body-menu{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
     .product{
-      width: 140px;
-      .text-c{
-
-        font-size: 14px!important;
+      display: flex;
+      align-content: flex-start;
+      justify-content: space-between;
+      background-color: $c-black-op-max;
+      border-radius: 10px;
+      padding: 1em;
+      position: relative;
+      box-shadow: 3px 3px 5ch black;
+      .price{
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
       }
-      .title{
-        font-size: 19px!important;
+      .text-content{
+        h2{
+
+          font-size: 1.7em;
+          text-transform: uppercase;
+        }
+        h5{
+          font-size: 1.2em;
+          text-transform: uppercase;
+
+        }
+        gap:.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      img{
+        width: 150px;
+        height: 150px;
+        border-radius: 150px;
+        margin-bottom: 1.5rem;
       }
     }
   }
-  .extended{
-    height: 2000px!important;
+}
+@media (max-width:1150px) {
+  .product{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end!important;
+    .text-content{
+      margin-bottom: 1.8em;
+    }
+    img{
+      margin-bottom: 7px!important;
+    }
   }
 }
+@media (max-width:750px) {
+.product{
+  h2{
+    font-size: 1.3em!important;
+  }
+}
+img{
+        width: 100px!important;
+        height: 100px!important;
+        border-radius: 100px!important;
+
+      }
+}
+@media (max-width:620px) {
+  .product{
+  h2{
+    font-size: 1.3em!important;
+  }
+}
+.body-menu{
+  grid-template-columns: 1fr 1fr!important;
+  
+}
+img{
+        width: 110px!important;
+        height: 110px!important;
+        border-radius: 100px!important;
+
+      }
+}
+@media (max-width:580px) {
+  .product{
+    font-size: .8em!important;
+    h2{
+      font-size: 1.2em!important;
+
+    }
+    h5{
+      font-size: .9em!important;
+    }
+  
+}
+.body-menu{
+  @include dfc;
+  align-items: stretch;
+
+  
+}
+
+}
+
 </style>

@@ -6,6 +6,7 @@ $c-black-op-min: rgba(0, 0, 0, 0.2);
 $c-black-op-none: rgba(0, 0, 0, 0);
 $c-white-op-max: rgba(255, 255, 255, 0.738);
 $c-white-op-med: rgba(255, 255, 255, 0.5);
+$c-white-op-min: rgba(255, 255, 255, 0.2);
 $c-red: red;
 $c-red-op-med: rgba(130, 3, 3, 0.482);
 $c-aside: rgba(0, 0, 0, 0.98);
@@ -38,3 +39,15 @@ $fs-title-med: 6rem;
 $fs-title-med-s: 4.5rem;
 $fs-title-min: 4rem;
 $fs-title-min-s: 3.4rem;
+
+//**button**//
+.btn{
+    padding: .5em 1.9em;
+    border-radius: 10px;
+    border:2px solid $c-white;
+    text-transform: uppercase;
+    font-weight: bolder;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+}

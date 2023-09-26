@@ -15,6 +15,7 @@
             }else{
                 this.state.sideMenuValue = 0;
             }
+           
         },
     }
  }

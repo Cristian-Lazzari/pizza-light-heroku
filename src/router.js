@@ -4,6 +4,8 @@ import Home from './pages/Home.vue';
 import ChiSiamo from './pages/ChiSiamo.vue';
 import Contatti from './pages/Contatti.vue';
 import Menu from './pages/Menu.vue';
+import Prenota from './pages/Prenota.vue';
+import Conferma from './pages/Conferma.vue';
 
 
 const router = createRouter({
@@ -28,7 +30,17 @@ const router = createRouter({
         path: '/menu',
         name: 'menu',
         component: Menu,
+      },   
+      {
+        path: '/prenota',
+        name: 'prenota',
+        component: Prenota,
       },
+      {
+        path: '/conferma',
+        name: 'conferma',
+        component: Conferma,
+      }
 
     ]
   });
