@@ -18,7 +18,7 @@ export default {
       phoneError: "",
       time: "",
       timeError: "",
-      isValid: false,
+      isValid: true,
       succes: false,
     };
   },
@@ -32,44 +32,50 @@ export default {
     },
 
     order_validations() {
-      this.isValid = true;
+      // this.isValid = true;
 
       if (!this.name) {
         this.nameError = "Il campo 'nome' è richiesto!";
-        isValid = false;
+        this.isValid = false;
       } else if (this.name.length < 2) {
         this.nameError = "Il campo 'nome' è troppo corto!";
-        isValid = false;
+        this.isValid = false;
       } else if (this.name.length > 50) {
         this.nameError = "Il campo 'name' non può superare i 50 caratteri!";
-        isValid = false;
+        this.isValid = false;
       }
 
       if (!this.phone) {
         this.phoneError = "Il campo 'N° telefono' è richiesto!";
-        isValid = false;
-      } else if ((this.phone.length = 10)) {
-        this.phoneError = "Il campo 'N° telefono' deve essere di 10 cifre!";
-        isValid = false;
+        this.isValid = false;
       }
+      // modificare quando verrà cambiato il tipo di dato per il telefono (numerico)
+      // else if (this.phone.length === 10) {
+      //   this.phoneError = "Il campo 'N° telefono' deve essere di 10 cifre!";
+      //   this.isValid = false;
+      // }
 
-      if (!isValid) {
+      if (!this.isValid) {
         return;
       }
     },
 
     sendOrder() {
-      let data = {
-        name: this.name,
-        phone: this.phone,
-        time: this.time,
-        arrId: JSON.stringify(this.state.arrId),
-        arrQt: JSON.stringify(this.state.arrQt),
-      };
-      console.log(JSON.stringify(this.state.arrQt));
-      axios.post(state.baseUrl + "api/orders", data).then((response) => {
-        this.success = response;
-      });
+      // debugger;
+      this.order_validations();
+      if (this.isValid) {
+        let data = {
+          name: this.name,
+          phone: this.phone,
+          time: this.time,
+          arrId: JSON.stringify(this.state.arrId),
+          arrQt: JSON.stringify(this.state.arrQt),
+        };
+        console.log(JSON.stringify(this.state.arrQt));
+        axios.post(state.baseUrl + "api/orders", data).then((response) => {
+          this.success = response;
+        });
+      }
     },
 
     removeItem(title) {
@@ -163,13 +169,22 @@ export default {
     </div>
 
     <div class="form" id="orderForm">
-      <input v-model="name" type="text" placeholder="Nome" id="name" />
-      <div id="nameError"></div>
-      <input v-model="phone" type="text" placeholder="N° telefono" id="phone" />
-      <div id="phoneError"></div>
+      <div>
+        <input v-model="name" type="text" placeholder="Nome" id="name" />
+        <div v-if="nameError" id="nameError">{{ nameError }}</div>
+      </div>
+      <div>
+        <input
+          v-model="phone"
+          type="text"
+          placeholder="N° telefono"
+          id="phone"
+        />
+        <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
+      </div>
       <!-- Gestire campo tempo ordinazione -->
-      <input v-model="time" type="text" placeholder="Orario" id="time" />
-      <div id="timeError"></div>
+      <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
+      <div id="timeError"></div> -->
       <span @click="sendOrder()" class="btn">Invia</span>
     </div>
   </div>
@@ -192,6 +207,14 @@ export default {
 ::placeholder {
   opacity: 1;
   color: white;
+}
+
+#nameError,
+#phoneError {
+  text-align: center;
+  font-size: 0.8em;
+  color: red;
+  margin-top: 0.3rem;
 }
 .tag {
   display: flex;
