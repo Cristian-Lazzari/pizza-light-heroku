@@ -202,6 +202,7 @@ export default {
     padding: 1em 1.4em;
     border: 2px solid $c-white;
     border-radius: 100px;
+    color: white;
   }
 }
 ::placeholder {
