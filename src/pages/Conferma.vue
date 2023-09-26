@@ -167,7 +167,7 @@ export default {
       <div id="nameError"></div>
       <input v-model="phone" type="text" placeholder="N° telefono" id="phone" />
       <div id="phoneError"></div>
-      <!-- Gestire campo tempo ordinazione  -->
+      <!-- Gestire campo tempo ordinazione -->
       <input v-model="time" type="text" placeholder="Orario" id="time" />
       <div id="timeError"></div>
       <span @click="sendOrder()" class="btn">Invia</span>
