@@ -19,6 +19,7 @@ export default {
       time: "",
       timeError: "",
       isValid: true,
+      loading: false,
       succes: false,
     };
   },
@@ -64,6 +65,7 @@ export default {
       // debugger;
       this.order_validations();
       if (this.isValid) {
+        this.loading = true;
         let data = {
           name: this.name,
           phone: this.phone,
@@ -74,6 +76,7 @@ export default {
         console.log(JSON.stringify(this.state.arrQt));
         axios.post(state.baseUrl + "api/orders", data).then((response) => {
           this.success = response;
+          this.loading = false;
         });
       }
     },
@@ -185,7 +188,8 @@ export default {
       <!-- Gestire campo tempo ordinazione -->
       <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
       <div id="timeError"></div> -->
-      <span @click="sendOrder()" class="btn">Invia</span>
+      <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
+      <span v-if="loading" class="btn btn_loading">Attendere</span>
     </div>
   </div>
 </template>
@@ -216,6 +220,10 @@ export default {
   font-size: 0.8em;
   color: red;
   margin-top: 0.3rem;
+}
+
+.btn_loading {
+  cursor: wait;
 }
 .tag {
   display: flex;
