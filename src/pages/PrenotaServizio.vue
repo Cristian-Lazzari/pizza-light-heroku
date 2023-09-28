@@ -13,24 +13,19 @@ export default {
       categoryId: 0,
       totCart: 0,
       name: "",
-      nperson: 0,
       phone: "",
+      nperson: 0,
+      time: "",
+      date: "",
+      message: "",
       nameError: "",
       phoneError: "",
-      timeError: "",
       isValid: true,
       loading: false,
       succes: false,
     };
   },
   methods: {
-    getPrice(cent) {
-      let num = parseFloat(cent);
-      num = num / 100;
-      num = "€" + num;
-
-      return num;
-    },
 
     order_validations() {
       // this.isValid = true;
@@ -72,15 +67,16 @@ export default {
         let data = {
           name: this.name,
           phone: this.phone,
-          time: '',
-          arrId: JSON.stringify(this.state.arrId),
-          arrQt: JSON.stringify(this.state.arrQt),
+          n_person: JSON.stringify(this.nperson),
+          time: this.time,
+          date: this.date,
+          message: this.message,
         };
 
             console.log(data)
 
         console.log(JSON.stringify(this.state.arrQt));
-        axios.post(state.baseUrl + "api/orders", data).then((response) => {
+        axios.post(state.baseUrl + "api/reservations", data).then((response) => {
           this.success = response;
           this.loading = false;
         });
@@ -89,35 +85,15 @@ export default {
       }
     },
 
-    removeItem(title) {
-      this.state.arrCart.forEach((element, i) => {
-        if (element.title == title) {
-          if (element.counter >= 0) {
-            element.counter--;
-            element.totprice -= element.price;
-            this.state.arrQt[i]--;
-          }
-          if (element.counter == 0) {
-            let nwi = i - 1;
-            this.state.arrId.splice(i, 1);
-            this.state.arrQt.splice(i, 1);
-            let newarrCart = this.state.arrCart.filter((element) => {
-              return element.title !== title;
-            });
-            this.state.arrCart = [];
-            this.state.arrCart = newarrCart;
-          }
-        }
-      });
-    },
+
   },
   created() {},
 };
 </script>
 
 <template>
-  <div class="menu">
-    <div class="top-menu">
+  <div class="ordina-servizio">
+    <div class="top">
       <h1>Prenota il tuo tavolo</h1>
     </div>
 
@@ -129,10 +105,9 @@ export default {
       </div>
 
       <div>
-        <input v-model="name" type="number" placeholder="N persone" id="name" />
-        <div v-if="nameError" id="nameError">{{ npersonError }}</div>
+        <input v-model="nperson" type="number" placeholder="N persone" id="name" />
+        <div v-if="npersonError" id="npersonError">{{ npersonError }}</div>
       </div>
-
       <div>
         <input
           v-model="phone"
@@ -143,6 +118,13 @@ export default {
         />
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
+      <div>
+        <textarea v-model="message"  placeholder="scrivi un messaggio" rows="4" cols="50">
+          
+        </textarea>
+        <div v-if="npersonError" id="npersonError">{{ npersonError }}</div>
+      </div>
+
 
       <!-- Gestire campo tempo ordinazione -->
       <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
@@ -165,14 +147,21 @@ export default {
   </div>
 </template>
 
+
+
+
 <style scoped lang="scss">
 @use "../assets/styles/general.scss" as *;
 
+.ordina-servizio{
+  width: 100%;
+}
 .form {
   display: flex;
   gap: 1rem;
-  align-items: center;
-  input {
+  flex-direction: column;
+  align-items: flex-start;
+  input, textarea {
     background-color: rgba(250, 235, 215, 0);
     padding: 1em 1.4em;
     border: 2px solid $c-white;
@@ -196,82 +185,6 @@ export default {
 .btn_loading {
   cursor: wait;
 }
-.tag {
-  display: flex;
-  gap: 0.4em;
-  background-color: $c-black-op-med;
-  padding: 0.5em;
-  border-radius: 30px;
-}
-
-.cart-mobile {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3em;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  width: 70%;
-  background-color: black;
-  border: 2px solid white;
-}
-.sub-item-off {
-  display: none;
-}
-.sub-item-on {
-  display: inline-block;
-}
-.cart-on {
-  margin: 1rem 1rem 3rem;
-  @include dfj;
-  flex-direction: column;
-  height: 100%;
-  gap: 0.4rem;
-  transition: all linear 0.3s;
-}
-.carts-on {
-  margin: 1rem 1rem 3rem;
-  @include dfj;
-
-  height: 100%;
-  gap: 0.4rem;
-  transition: all linear 0.3s;
-}
-.cart-off {
-  height: 0%;
-  margin: 0;
-  transition: all linear 0.3s;
-}
-.item-on {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem;
-  border: 2px solid white;
-  min-width: 300px;
-
-  transition: all linear 0.3s;
-}
-.item-off {
-  gap: 0rem;
-  padding: 0rem;
-  border: 0px solid white;
-  //width: 0px;
-  height: 0;
-  transition: all linear 0.3s;
-}
-.icon-cart {
-  margin: 1rem;
-}
-
-.cs {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-}
-
 
 
 
