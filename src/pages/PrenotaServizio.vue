@@ -13,6 +13,7 @@ export default {
       categoryId: 0,
       totCart: 0,
       name: "",
+      nperson: 0,
       phone: "",
       nameError: "",
       phoneError: "",
@@ -117,74 +118,22 @@ export default {
 <template>
   <div class="menu">
     <div class="top-menu">
-      <h1>Completa il tuo ordine</h1>
+      <h1>Prenota il tuo tavolo</h1>
     </div>
-    <div @click="opencart()" class="icon-cart">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="30"
-        height="30"
-        fill="currentColor"
-        class="bi bi-cart-fill"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-        />
-      </svg>
-    </div>
-    <div :class="state.sideCartValue ? 'cart-off' : 'cart-on'">
-      <!-- <div class="icon-cart"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/> </svg></div> -->
-      <div
-        v-for="item in state.arrCart"
-        :class="state.sideCartValue ? 'item-off' : 'item-on'"
-        :key="item.id"
-      >
-        <div :class="state.sideCartValue ? 'sub-item-off' : 'sub-item-on tag'">
-          {{ item.title }}
-        </div>
-        <div :class="state.sideCartValue ? 'sub-item-off' : 'sub-item-on tag'">
-          {{ item.counter }}
-        </div>
-        <div :class="state.sideCartValue ? 'sub-item-off' : 'sub-item-on tag'">
-          {{ getPrice(item.totprice) }}
-        </div>
-        <svg
-          :class="state.sideCartValue ? 'sub-item-off' : 'sub-item-on'"
-          @click="removeItem(item.title)"
-          style="color: red"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-trash"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
-            fill="red"
-          ></path>
-          <path
-            fill-rule="evenodd"
-            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-            fill="red"
-          ></path>
-          </svg>
-        </div>
-      <div :class="state.sideCartValue ? 'item-off' : 'item-on'">
-        <div :class="state.sideCartValue ? 'sub-item-off' : 'sub-item-on'">
-          Totale:{{ getPrice(totCart) }}
-        </div>
-      </div>
-    </div>
+
 
     <div class="form" id="orderForm">
       <div>
         <input v-model="name" type="text" placeholder="Nome" id="name" />
         <div v-if="nameError" id="nameError">{{ nameError }}</div>
       </div>
-      <div>
 
+      <div>
+        <input v-model="name" type="number" placeholder="N persone" id="name" />
+        <div v-if="nameError" id="nameError">{{ npersonError }}</div>
+      </div>
+
+      <div>
         <input
           v-model="phone"
           type="text"
@@ -194,12 +143,17 @@ export default {
         />
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
+
       <!-- Gestire campo tempo ordinazione -->
       <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
       <div id="timeError"></div> -->
+
       <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
       
     </div>
+
+
+
     <div v-if="loading" class="loop cubes">
       <div class="item cubes"></div>
       <div class="item cubes"></div>
