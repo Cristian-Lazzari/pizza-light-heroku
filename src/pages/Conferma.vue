@@ -241,6 +241,17 @@ export default {
     border-radius: 100px;
     color: white;
   }
+  select {
+    background-color: rgba(250, 235, 215, 0);
+    padding: 1em 1.4em;
+    border: 2px solid $c-white;
+    border-radius: 100px;
+    color: white;
+    option {
+      background-color: black;
+      color: white;
+    }
+  }
 }
 ::placeholder {
   opacity: 1;
