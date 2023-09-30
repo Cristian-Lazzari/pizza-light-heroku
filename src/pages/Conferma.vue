@@ -15,6 +15,7 @@ export default {
       totCart: 0,
       name: "",
       phone: "",
+      timeSlot: "",
       nameError: "",
       phoneError: "",
       timeError: "",
@@ -67,7 +68,6 @@ export default {
     },
 
     sendOrder() {
-      // debugger;
       this.phoneError = "";
       this.nameError = "";
       this.isValid = true;
@@ -77,7 +77,7 @@ export default {
         let data = {
           name: this.name,
           phone: this.phone,
-          time: "",
+          time: this.timeSlot,
           arrId: JSON.stringify(this.state.arrId),
           arrQt: JSON.stringify(this.state.arrQt),
         };
@@ -91,6 +91,7 @@ export default {
         });
         this.name = "";
         this.phone = "";
+        this.timeSlot = "";
       }
     },
 
@@ -202,10 +203,10 @@ export default {
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
       <div>
-        <select name="times" id="times">
+        <select name="times" id="times" v-model="timeSlot">
           <option value="">Seleziona una fascia oraria</option>
           <template v-for="time in arrTimesSlot">
-            <option v-if="time.visible === 1" :value="time.time_slot">
+            <option v-if="time.visible === 1">
               {{ time.time_slot }}
             </option>
           </template>
