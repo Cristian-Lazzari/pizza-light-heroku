@@ -10,6 +10,7 @@ export default {
       state,
       arrProduct: [],
       arrCategory: [],
+      arrTimesSlot: [],
       categoryId: 0,
       totCart: 0,
       name: "",
@@ -23,6 +24,11 @@ export default {
     };
   },
   methods: {
+    getTimesSlots() {
+      axios.get("http://127.0.0.1:8000/api/time").then((response) => {
+        this.arrTimesSlot = response.data.results;
+      });
+    },
     getPrice(cent) {
       let num = parseFloat(cent);
       num = num / 100;
@@ -62,29 +68,29 @@ export default {
 
     sendOrder() {
       // debugger;
-      this.phoneError='';
-      this.nameError='';
-      this.isValid=true;
+      this.phoneError = "";
+      this.nameError = "";
+      this.isValid = true;
       this.order_validations();
       if (this.isValid) {
         this.loading = true;
         let data = {
           name: this.name,
           phone: this.phone,
-          time: '',
+          time: "",
           arrId: JSON.stringify(this.state.arrId),
           arrQt: JSON.stringify(this.state.arrQt),
         };
 
-            console.log(data)
+        console.log(data);
 
         console.log(JSON.stringify(this.state.arrQt));
         axios.post(state.baseUrl + "api/orders", data).then((response) => {
           this.success = response;
           this.loading = false;
         });
-        this.name='';
-        this.phone='';
+        this.name = "";
+        this.phone = "";
       }
     },
 
@@ -110,7 +116,9 @@ export default {
       });
     },
   },
-  created() {},
+  created() {
+    this.getTimesSlots();
+  },
 };
 </script>
 
@@ -169,8 +177,8 @@ export default {
             d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
             fill="red"
           ></path>
-          </svg>
-        </div>
+        </svg>
+      </div>
       <div :class="state.sideCartValue ? 'item-off' : 'item-on'">
         <div :class="state.sideCartValue ? 'sub-item-off' : 'sub-item-on'">
           Totale:{{ getPrice(totCart) }}
@@ -184,7 +192,6 @@ export default {
         <div v-if="nameError" id="nameError">{{ nameError }}</div>
       </div>
       <div>
-
         <input
           v-model="phone"
           type="text"
@@ -194,11 +201,20 @@ export default {
         />
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
+      <div>
+        <select name="times" id="times">
+          <option value="">Seleziona una fascia oraria</option>
+          <template v-for="time in arrTimesSlot">
+            <option v-if="time.visible === 1" :value="time.time_slot">
+              {{ time.time_slot }}
+            </option>
+          </template>
+        </select>
+      </div>
       <!-- Gestire campo tempo ordinazione -->
       <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
       <div id="timeError"></div> -->
       <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
-      
     </div>
     <div v-if="loading" class="loop cubes">
       <div class="item cubes"></div>
@@ -317,9 +333,6 @@ export default {
   flex-direction: column;
   width: 50%;
 }
-
-
-
 
 //loader
 .cubes {
