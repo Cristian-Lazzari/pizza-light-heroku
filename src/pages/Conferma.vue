@@ -62,6 +62,11 @@ export default {
         this.isValid = false;
       }
 
+      if (!this.timeSlot) {
+        this.timeError = "Seleziona una fascia oraria!";
+        this.isValid = false;
+      }
+
       if (!this.isValid) {
         return;
       }
@@ -211,6 +216,7 @@ export default {
             </option>
           </template>
         </select>
+        <div v-if="timeError" id="timeError">{{ timeError }}</div>
       </div>
       <!-- Gestire campo tempo ordinazione -->
       <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
@@ -260,7 +266,8 @@ export default {
 }
 
 #nameError,
-#phoneError {
+#phoneError,
+#timeError {
   text-align: center;
   font-size: 0.8em;
   color: red;
