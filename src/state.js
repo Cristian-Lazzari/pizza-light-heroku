@@ -181,5 +181,6 @@ export const state = reactive({
 
         ],
         
-    ]
+    ],
+    setting:[],
 });

@@ -1,6 +1,6 @@
 <script >
   import {state} from '../state.js'
-
+  import axios from 'axios';
   export default {
 
 
@@ -9,6 +9,10 @@
             state,
         }
     },
+    created(){
+        axios.get(state.baseUrl + 'api/setting', {}).then(response=> this.state.setting = response.data.results );
+   
+    }
 
   }
 </script>
@@ -16,6 +20,9 @@
 <template>
 
     <div class="main-home">
+        <div v-if="state.setting[2].status" class="ferie">
+            Finalmente un po di riposo anche per noi.. siamo in ferie dal {{ state.setting[2].from }} e torneremo il  {{ state.setting[2].to }}
+        </div>
         <div class="par">
             <span>Se ancora non hai provato le sfiziosità della nostra cucina devi assolutamente vedere il nostro menù</span>
             <button class="btn btn-2" ><router-link :to="{ name: 'menu' }" class="nav-link active" >Menù</router-link></button>
