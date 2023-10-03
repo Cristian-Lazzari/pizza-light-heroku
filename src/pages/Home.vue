@@ -27,11 +27,11 @@
             <span>Se ancora non hai provato le sfiziosità della nostra cucina devi assolutamente vedere il nostro menù</span>
             <button class="btn btn-2" ><router-link :to="{ name: 'menu' }" class="nav-link active" >Menù</router-link></button>
         </div>
-        <div class="par par-2">
+        <div class="par par-2"  v-if="state.setting[0].status">
             <span>La serata perfetta non esis... E invece esiste eccome! Nasce proprio dal pasto perfetto, quindi che aspetti prenota ora la tua pizza o il tavolo per poterla gustare da noi </span>
             <button class="btn btn-1" ><router-link :to="{ name: 'prenota' }" class="nav-link active" >Prenota asporto</router-link></button>
         </div>
-        <div class="par par-2">
+        <div class="par par-2"  v-if="state.setting[1].status">
             <span>E se volessi cenare proprio da noi? Prenota subito il tuo tavolo ti aspettiamo a cena da noi!</span>
             <button class="btn btn-1" ><router-link :to="{ name: 'prenotaServizio' }" class="nav-link active" >Prenota un tavolo</router-link></button>
         </div>

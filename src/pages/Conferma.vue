@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default {
   components: {},
-
+  
   data() {
     return {
       state,
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getTimesSlots() {
-      axios.get("http://127.0.0.1:8000/api/time").then((response) => {
+      axios.get(this.state.baseUrl + "api/time").then((response) => {
         this.arrTimesSlot = response.data.results;
       });
     },
@@ -121,9 +121,22 @@ export default {
         }
       });
     },
+    createDataArray(){
+
+
+      // let arrdate=[];
+      // for(i = 0; i < 4; i++){
+      //   arrdate.push(newdata + 1)
+      // }
+
+    },
+    inputTime(a){
+      this.time_slot = a
+    }
   },
   created() {
     this.getTimesSlots();
+    //this.createDataArray();
   },
 };
 </script>
@@ -207,20 +220,28 @@ export default {
         />
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
+      <input type="date"  id="">
       <div>
-        <select name="times" id="times" v-model="timeSlot">
+        <!-- <select name="times" id="times" v-model="timeSlot">
           <option value="">Seleziona una fascia oraria</option>
-          <template v-for="time in arrTimesSlot">
-            <option v-if="time.visible === 1">
-              {{ time.time_slot }}
-            </option>
-          </template>
-        </select>
-        <div v-if="timeError" id="timeError">{{ timeError }}</div>
+          <option v-for="time in arrTimesSlot" :key="time.time_slot">
+            <span  v-if="time.visible" > {{ time.time_slot }} </span>
+              
+
+          </option>
+        </select> -->
+        <div class="orari-container">
+          <div class="center-orari">
+            <div v-for="time in arrTimesSlot" :key="time.time_slot" >
+              <div v-if="time.visible" class="badge">{{ time.time_slot }} </div>
+            </div>
+          </div>
+        </div>
+         <div v-if="timeError" id="timeError">{{  }}</div>
       </div>
-      <!-- Gestire campo tempo ordinazione -->
-      <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
-      <div id="timeError"></div> -->
+      Gestire campo tempo ordinazione 
+      <input v-model="time" type="text" placeholder="Orario" id="time" />
+      <div id="timeError"></div> 
       <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
     </div>
     <div v-if="loading" class="loop cubes">
@@ -239,6 +260,7 @@ export default {
 
 .form {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   align-items: center;
   input {
@@ -247,8 +269,10 @@ export default {
     border: 2px solid $c-white;
     border-radius: 100px;
     color: white;
+    min-width: 250px;
   }
   select {
+    min-width: 250px;
     background-color: rgba(250, 235, 215, 0);
     padding: 1em 1.4em;
     border: 2px solid $c-white;
@@ -484,5 +508,22 @@ export default {
 
 .item:nth-child(6):after {
   color: #ffda77;
+}
+.badge{
+  background-color: blue;
+  padding: 5px 10px;
+  margin: 5px;
+}
+.orari-container{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  max-width: 900px;
+}
+.center-orari{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>
