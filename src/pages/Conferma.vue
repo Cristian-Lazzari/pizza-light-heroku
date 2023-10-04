@@ -137,8 +137,8 @@ export default {
         this.arrTimesSlot = [];
         console.log('oggi')
         this.getTimesSlots();
-        let oraOggi = parseInt(di.getHours());
-        let minOggi = parseInt(di.getMinutes());
+        let oraOggi = parseInt(oggi.getHours());
+        let minOggi = parseInt(oggi.getMinutes());
         console.log(oraOggi)
         console.log(minOggi)
         console.log(di)
@@ -161,19 +161,7 @@ export default {
       else if(Date.parse(di) > Date.now()){
         this.arrTimesSlot = [];
         console.log('domani')
-        console.log(di)
-        this.state.defaultTimes.forEach(element => {
-          let oraOggi = parseInt(di.getHours());
-          let ora     = parseInt(element.time_slot.slice(0,1));
-          let minOggi = parseInt(di.getMinutes());
-          let min     = parseInt(element.time_slot.slice(3,4));
-          if(oraOggi >= ora){
-            if((min - (this.DeltaMinuti + minOggi)) > 0 ){
-              this.arrTimesSlot.push(element)
-            }
-          }
-          
-        });
+        this.arrTimesSlot= this.state.defaultTimes
         
       }
       else {
