@@ -32,10 +32,6 @@ export default {
       axios.get(this.state.baseUrl + "api/time").then((response) => {
         this.arrTimesSlotApi = response.data.results;
       });
-      console.log('request api')
-      this.arrTimesSlotApi.forEach(element => {
-        console.log(element)
-      });
 
     },
     getPrice(cent) {
@@ -137,23 +133,21 @@ export default {
     checkData(i){
       let oggi = new Date()
       let di = new Date(i)
-      this.getTimesSlots()
       
       if(di.getDate() == oggi.getDate() && di.getMonth() == oggi.getMonth() && di.getFullYear() == oggi.getFullYear() ){
-        //this.arrTimesSlot =null;
+        this.arrTimesSlot =[];
+        this.getTimesSlots()
         console.log('oggi')
-        console.log(this.arrTimesSlotApi)
+        
         let oraOggi = parseInt(oggi.getHours());
         let minOggi = parseInt(oggi.getMinutes());
-        console.log(oraOggi)
-        console.log(minOggi)
+        
         console.log('foreach')
         
         this.arrTimesSlotApi.forEach(element => {
           let ora     = parseInt(element.time_slot.slice(0,2));
           let min     = parseInt(element.time_slot.slice(3,5));
-          console.log(ora)
-          console.log(min)
+          
           
           if(oraOggi == ora){
             console.log(min)
