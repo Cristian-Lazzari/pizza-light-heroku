@@ -11,6 +11,7 @@ export default {
       arrProduct: [],
       arrCategory: [],
       arrTimesSlot: [],
+      arrTimesSlotApi: [],
       categoryId: 0,
       totCart: 0,
       name: "",
@@ -22,12 +23,14 @@ export default {
       isValid: true,
       loading: false,
       succes: false,
+      idate:'',
+      DeltaMinuti: 30,
     };
   },
   methods: {
     getTimesSlots() {
       axios.get(this.state.baseUrl + "api/time").then((response) => {
-        this.arrTimesSlot = response.data.results;
+        this.arrTimesSlotApi = response.data.results;
       });
     },
     getPrice(cent) {
@@ -121,21 +124,69 @@ export default {
         }
       });
     },
-    createDataArray(){
 
-
-      // let arrdate=[];
-      // for(i = 0; i < 4; i++){
-      //   arrdate.push(newdata + 1)
-      // }
-
-    },
     inputTime(a){
       this.time_slot = a
+    },
+
+    checkData(i){
+      let oggi = new Date()
+      let di = new Date(i)
+
+      if(di.getDate() == oggi.getDate() && di.getMonth() == oggi.getMonth() && di.getFullYear() == oggi.getFullYear() ){
+        this.arrTimesSlot = [];
+        console.log('oggi')
+        this.getTimesSlots();
+        let oraOggi = parseInt(di.getHours());
+        let minOggi = parseInt(di.getMinutes());
+        console.log(oraOggi)
+        console.log(minOggi)
+        console.log(di)
+        this.arrTimesSlotApi.forEach(element => {
+          let ora     = parseInt(element.time_slot.slice(0,1));
+          let min     = parseInt(element.time_slot.slice(3,4));
+          console.log(ora)
+          console.log(min)
+          if(oraOggi == ora){
+            if((min - (this.DeltaMinuti + minOggi)) > 0 ){
+              this.arrTimesSlot.push(element)
+            }
+          }
+          else if(oraOggi > ora){
+            this.arrTimesSlot.push(element)
+          }
+          
+        });
+      }
+      else if(Date.parse(di) > Date.now()){
+        this.arrTimesSlot = [];
+        console.log('domani')
+        console.log(di)
+        this.state.defaultTimes.forEach(element => {
+          let oraOggi = parseInt(di.getHours());
+          let ora     = parseInt(element.time_slot.slice(0,1));
+          let minOggi = parseInt(di.getMinutes());
+          let min     = parseInt(element.time_slot.slice(3,4));
+          if(oraOggi >= ora){
+            if((min - (this.DeltaMinuti + minOggi)) > 0 ){
+              this.arrTimesSlot.push(element)
+            }
+          }
+          
+        });
+        
+      }
+      else {
+        
+        this.arrTimesSlot = [];
+        console.log('scrivi un giorno accettabile')
+
+
+      }
+      
     }
   },
   created() {
-    this.getTimesSlots();
     //this.createDataArray();
   },
 };
@@ -220,7 +271,7 @@ export default {
         />
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
-      <input type="date"  id="">
+      <input type="date" v-model="idate" @input="checkData(idate)" id="">
       <div>
         <!-- <select name="times" id="times" v-model="timeSlot">
           <option value="">Seleziona una fascia oraria</option>
@@ -233,14 +284,13 @@ export default {
         <div class="orari-container">
           <div class="center-orari">
             <div v-for="time in arrTimesSlot" :key="time.time_slot" >
-              <div v-if="time.visible" class="badge">{{ time.time_slot }} </div>
+              <div v-if="time.visible" class="badge" >{{ time.time_slot }} </div>
             </div>
           </div>
         </div>
          <div v-if="timeError" id="timeError">{{  }}</div>
       </div>
-      Gestire campo tempo ordinazione 
-      <input v-model="time" type="text" placeholder="Orario" id="time" />
+
       <div id="timeError"></div> 
       <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
     </div>
@@ -511,6 +561,11 @@ export default {
 }
 .badge{
   background-color: blue;
+  padding: 5px 10px;
+  margin: 5px;
+}
+.badge-off{
+  background-color: rgb(210, 32, 19);
   padding: 5px 10px;
   margin: 5px;
 }
