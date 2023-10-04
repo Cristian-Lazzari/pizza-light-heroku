@@ -32,6 +32,11 @@ export default {
       axios.get(this.state.baseUrl + "api/time").then((response) => {
         this.arrTimesSlotApi = response.data.results;
       });
+      console.log('request api')
+      this.arrTimesSlotApi.forEach(element => {
+        console.log(element)
+      });
+
     },
     getPrice(cent) {
       let num = parseFloat(cent);
@@ -132,27 +137,31 @@ export default {
     checkData(i){
       let oggi = new Date()
       let di = new Date(i)
-
+      this.getTimesSlots()
+      
       if(di.getDate() == oggi.getDate() && di.getMonth() == oggi.getMonth() && di.getFullYear() == oggi.getFullYear() ){
-        this.arrTimesSlot = [];
+        //this.arrTimesSlot =null;
         console.log('oggi')
-        this.getTimesSlots();
+        console.log(this.arrTimesSlotApi)
         let oraOggi = parseInt(oggi.getHours());
         let minOggi = parseInt(oggi.getMinutes());
         console.log(oraOggi)
         console.log(minOggi)
-        console.log(di)
+        console.log('foreach')
+        
         this.arrTimesSlotApi.forEach(element => {
-          let ora     = parseInt(element.time_slot.slice(0,1));
-          let min     = parseInt(element.time_slot.slice(3,4));
+          let ora     = parseInt(element.time_slot.slice(0,2));
+          let min     = parseInt(element.time_slot.slice(3,5));
           console.log(ora)
           console.log(min)
+          
           if(oraOggi == ora){
+            console.log(min)
             if((min - (this.DeltaMinuti + minOggi)) > 0 ){
               this.arrTimesSlot.push(element)
             }
           }
-          else if(oraOggi > ora){
+          else if(oraOggi < ora){
             this.arrTimesSlot.push(element)
           }
           
@@ -168,14 +177,15 @@ export default {
         
         this.arrTimesSlot = [];
         console.log('scrivi un giorno accettabile')
-
-
+        
+        
       }
       
     }
   },
   created() {
     //this.createDataArray();
+    this.getTimesSlots()
   },
 };
 </script>
