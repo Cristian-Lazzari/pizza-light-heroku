@@ -24,7 +24,7 @@ export default {
       loading: false,
       succes: false,
       idate:'',
-      DeltaMinuti: 30,
+      DeltaMinuti: 10,
     };
   },
   methods: {
@@ -79,8 +79,10 @@ export default {
     sendOrder() {
       this.phoneError = "";
       this.nameError = "";
+      this.timeError = "";
       this.isValid = true;
       this.order_validations();
+      console.log(this.timeSlot);
       if (this.isValid) {
         this.loading = true;
         let data = {
@@ -126,8 +128,21 @@ export default {
       });
     },
 
-    inputTime(a){
-      this.time_slot = a
+    inputTime(time, id){
+      this.arrTimesSlot.forEach((element, i) => {
+        if(element.id == 'active'){
+          element.id = i
+        }
+        
+      });
+      this.arrTimesSlot.forEach((element, i) => {
+        if(element.id == id){
+          element.id = 'active'
+        }
+        
+      });
+      this.time_slot = time;
+      console.log(this.time_slot)
     },
 
     checkData(i){
@@ -155,6 +170,10 @@ export default {
               this.arrTimesSlot.push(element)
             }
           }
+          else if(ora == (oraOggi + 1)){
+            if((minOggi - 60 + min) > this.DeltaMinuti)
+            this.arrTimesSlot.push(element)
+          }
           else if(oraOggi < ora){
             this.arrTimesSlot.push(element)
           }
@@ -178,7 +197,7 @@ export default {
     }
   },
   created() {
-    //this.createDataArray();
+   
     this.getTimesSlots()
   },
 };
@@ -203,7 +222,7 @@ export default {
         />
       </svg>
     </div>
-    <div :class="state.sideCartValue ? 'cart-off' : 'cart-on'">
+    <div class="cart-on">
       <!-- <div class="icon-cart"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/> </svg></div> -->
       <div
         v-for="item in state.arrCart"
@@ -264,7 +283,7 @@ export default {
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
       <input type="date" v-model="idate" @input="checkData(idate)" id="">
-      <div>
+      <div class="orari-container">
         <!-- <select name="times" id="times" v-model="timeSlot">
           <option value="">Seleziona una fascia oraria</option>
           <option v-for="time in arrTimesSlot" :key="time.time_slot">
@@ -273,14 +292,13 @@ export default {
 
           </option>
         </select> -->
-        <div class="orari-container">
+
           <div class="center-orari">
             <div v-for="time in arrTimesSlot" :key="time.time_slot" >
-              <div v-if="time.visible" class="badge" >{{ time.time_slot }} </div>
+              <div v-if="time.visible" class="badge" :class="time.id == 'active' ? 'actv' : ''" @click="inputTime(time.time_slot, time.id)"  >{{ time.time_slot }} </div>
             </div>
           </div>
-        </div>
-         <div v-if="timeError" id="timeError">{{  }}</div>
+         <div v-if="timeError" id="timeError">{{ timeError }}</div>
       </div>
 
       <div id="timeError"></div> 
@@ -299,6 +317,12 @@ export default {
 
 <style scoped lang="scss">
 @use "../assets/styles/general.scss" as *;
+
+.actv{
+  color: #fe1e52;
+  background-color: white !important;;
+}
+
 
 .form {
   display: flex;
@@ -339,6 +363,7 @@ export default {
   color: red;
   margin-top: 0.3rem;
 }
+
 
 .btn_loading {
   cursor: wait;
