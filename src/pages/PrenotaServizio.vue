@@ -4,31 +4,44 @@ import axios from "axios";
 
 export default {
   components: {},
-
+  
   data() {
     return {
       state,
-      arrProduct: [],
-      arrCategory: [],
-      categoryId: 0,
-      totCart: 0,
+
+
+      arrTimesSlot: [],
+      arrTimesSlotApi: [],
+
       name: "",
       phone: "",
-      nperson: 0,
-      time: "",
-      date: "",
+      idate:'',
+      timeSlot: "",
       message: "",
+      nperson: "",
+      
       nameError: "",
       phoneError: "",
+      timeError: "",
+      dateError: "",
+      npersonError: "",
+      
       isValid: true,
       loading: false,
       succes: false,
+      DeltaMinuti: 30,
     };
   },
   methods: {
+    getTimesSlots() {
+      axios.get(this.state.baseUrl + "api/slot").then((response) => {
+        this.arrTimesSlotApi = response.data.results;
+      });
+
+    },
 
     order_validations() {
-      // this.isValid = true;
+       this.isValid = true;
 
       if (!this.name) {
         this.nameError = "Il campo 'nome' è richiesto!";
@@ -42,12 +55,25 @@ export default {
       }
 
       if (!this.phone) {
-        this.phoneError = "Il campo 'N° telefono' è richiesto!";
+        this.phoneError = "Il campo 'N° 'telefono' è richiesto!";
         this.isValid = false;
       }
-      // modificare quando verrà cambiato il tipo di dato per il telefono (numerico)
+
       else if (this.phone.length !== 10) {
-        this.phoneError = "Il campo 'N° telefono' deve essere di 10 cifre!";
+        this.phoneError = "Il campo 'N° 'telefono' deve essere di 10 cifre!";
+        this.isValid = false;
+      }
+
+      if (!this.idate) {
+        this.dateError = "Seleziona una data!" ;
+        this.isValid = false;
+      }
+      if (!this.timeSlot) {
+        this.timeError = "Seleziona una fascia oraria!";
+        this.isValid = false;
+      }
+      if (!this.nperson) {
+        this.npersonError = "Seleziona una numero di ospiti!";
         this.isValid = false;
       }
 
@@ -57,56 +83,135 @@ export default {
     },
 
     sendOrder() {
-      // debugger;
-      this.phoneError='';
-      this.nameError='';
-      this.isValid=true;
+      this.phoneError = "";
+      this.nameError = "";
+      this.timeError = "";
+      this.dateError = "";
+      this.npersonError = "";
+      this.isValid = true;
       this.order_validations();
+      console.log(this.timeSlot);
       if (this.isValid) {
         this.loading = true;
         let data = {
           name: this.name,
           phone: this.phone,
-          n_person: JSON.stringify(this.nperson),
-          time: this.time,
-          date: this.date,
+          date: this.idate,
+          time: this.timeSlot,
+          n_person: this.nperson,
           message: this.message,
         };
 
-            console.log(data)
+        console.log(data);
 
         console.log(JSON.stringify(this.state.arrQt));
         axios.post(state.baseUrl + "api/reservations", data).then((response) => {
           this.success = response;
           this.loading = false;
         });
-        this.name='';
-        this.phone='';
+        this.name = "";
+        this.phone = "";
+        this.idate = "";
+        this.timeSlot = "";
+        this.message= "";
+        this.nperson= "";
+
+        this.state.arrId= [];
+        this.state.arrQt= [];
+        this.state.arrCart= [];
+        this.arrTimesSlot= [];
+        this.arrTimesSlotApi= [];
       }
     },
 
 
-  },
 
+    inputTime(time, id){
+      this.arrTimesSlot.forEach((element, i) => {
+        if(element.id == 'active'){
+          element.id = i + 1
+        }
+        
+      });
+      this.arrTimesSlot.forEach((element, i) => {
+        if(element.id == id){
+          element.id = 'active'
+        }
+        
+      });
+      this.timeSlot = time;
+      
+    },
+
+    checkData(i){
+      let oggi = new Date()
+      let di = new Date(i)
+      
+      if(di.getDate() == oggi.getDate() && di.getMonth() == oggi.getMonth() && di.getFullYear() == oggi.getFullYear() ){
+        this.arrTimesSlot =[];
+        this.getTimesSlots()
+        console.log('oggi')
+        
+        let oraOggi = parseInt(oggi.getHours());
+        let minOggi = parseInt(oggi.getMinutes());
+        
+        console.log('foreach')
+        
+        this.arrTimesSlotApi.forEach(element => {
+          let ora     = parseInt(element.time_slot.slice(0,2));
+          let min     = parseInt(element.time_slot.slice(3,5));
+          
+          
+          if(oraOggi == ora){
+            console.log(min)
+            if((min - (this.DeltaMinuti + minOggi)) > 0 ){
+              this.arrTimesSlot.push(element)
+            }
+          }
+          else if(ora == (oraOggi + 1)){
+            if((minOggi - 60 + min) > this.DeltaMinuti)
+            this.arrTimesSlot.push(element)
+          }
+          else if(oraOggi < ora){
+            this.arrTimesSlot.push(element)
+          }
+          
+        });
+      }
+      else if(Date.parse(di) > Date.now()){
+        this.arrTimesSlot = [];
+        console.log('domani')
+        this.arrTimesSlot= this.state.defaultTimes
+        
+      }
+      else {
+        
+        this.arrTimesSlot = [];
+        console.log('scrivi un giorno accettabile')
+        
+        
+      }
+      
+    }
+  },
+  created() {
+   
+    this.getTimesSlots()
+  },
 };
 </script>
 
 <template>
-  <div class="ordina-servizio">
-    <div class="top">
+  <div class="menu">
+    <div class="top-menu">
       <h1>Prenota il tuo tavolo</h1>
     </div>
-
+   
 
     <div class="form" id="orderForm">
       <div>
         <input v-model="name" type="text" placeholder="Nome" id="name" />
         <div v-if="nameError" id="nameError">{{ nameError }}</div>
-      </div>
-
-      <div>
-        <input v-model="nperson" type="number" placeholder="N persone" id="name" />
-        <div v-if="npersonError" id="npersonError">{{ npersonError }}</div>
       </div>
       <div>
         <input
@@ -119,23 +224,28 @@ export default {
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
       <div>
-        <textarea v-model="message"  placeholder="scrivi un messaggio" rows="4" cols="50">
-          
-        </textarea>
+        <input type="number" v-model="nperson" id="" placeholder="numero ospiti">
         <div v-if="npersonError" id="npersonError">{{ npersonError }}</div>
+      </div>
+      <div>
+        <input type="date" v-model="idate" @input="checkData(idate)" id="">
+        <div v-if="dateError" id="dateError">{{ dateError }}</div>
+      </div>
+      <div class="orari-container">
+          <div class="center-orari">
+            <div v-for="time in arrTimesSlot" :key="time.time_slot" >
+              <div v-if="time.visible" class="badge" :class="time.id == 'active' ? 'actv' : ''" @click="inputTime(time.time_slot, time.id)"  >{{ time.time_slot }} </div>
+            </div>
+          </div>
+         <div v-if="timeError" id="timeError">{{ timeError }}</div>
+      </div>
+      <div>
+        <textarea name="message" id="" cols="30" rows="10"></textarea>
       </div>
 
 
-      <!-- Gestire campo tempo ordinazione -->
-      <!-- <input v-model="time" type="text" placeholder="Orario" id="time" />
-      <div id="timeError"></div> -->
-
       <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
-      
     </div>
-
-
-
     <div v-if="loading" class="loop cubes">
       <div class="item cubes"></div>
       <div class="item cubes"></div>
@@ -147,26 +257,39 @@ export default {
   </div>
 </template>
 
-
-
-
 <style scoped lang="scss">
 @use "../assets/styles/general.scss" as *;
 
-.ordina-servizio{
-  width: 100%;
+.actv{
+  color: #fe1e52;
+  background-color: white !important;;
 }
+
+
 .form {
   display: flex;
-  gap: 1rem;
   flex-direction: column;
-  align-items: flex-start;
-  input, textarea {
+  gap: 1rem;
+  align-items: center;
+  input, textarea{
+    background-color: rgba(250, 235, 215, 0);
+    padding: 1em 1.4em;
+    border: 2px solid $c-white;
+    border-radius: 10px;
+    color: white;
+    min-width: 250px;
+  }
+  select {
+    min-width: 250px;
     background-color: rgba(250, 235, 215, 0);
     padding: 1em 1.4em;
     border: 2px solid $c-white;
     border-radius: 100px;
     color: white;
+    option {
+      background-color: black;
+      color: white;
+    }
   }
 }
 ::placeholder {
@@ -175,18 +298,96 @@ export default {
 }
 
 #nameError,
-#phoneError {
+#phoneError,
+#timeError,
+#dateError,
+#timeError,
+#npersonError {
   text-align: center;
   font-size: 0.8em;
   color: red;
   margin-top: 0.3rem;
 }
 
+
 .btn_loading {
   cursor: wait;
 }
+.tag {
+  display: flex;
+  gap: 0.4em;
+  background-color: $c-black-op-med;
+  padding: 0.5em;
+  border-radius: 30px;
+}
 
+.cart-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 70%;
+  background-color: black;
+  border: 2px solid white;
+}
+.sub-item-off {
+  display: none;
+}
+.sub-item-on {
+  display: inline-block;
+}
+.cart-on {
+  margin: 1rem 1rem 3rem;
+  @include dfj;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.4rem;
+  transition: all linear 0.3s;
+}
+.carts-on {
+  margin: 1rem 1rem 3rem;
+  @include dfj;
 
+  height: 100%;
+  gap: 0.4rem;
+  transition: all linear 0.3s;
+}
+.cart-off {
+  height: 0%;
+  margin: 0;
+  transition: all linear 0.3s;
+}
+.item-on {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid white;
+  min-width: 300px;
+
+  transition: all linear 0.3s;
+}
+.item-off {
+  gap: 0rem;
+  padding: 0rem;
+  border: 0px solid white;
+  //width: 0px;
+  height: 0;
+  transition: all linear 0.3s;
+}
+.icon-cart {
+  margin: 1rem;
+}
+
+.cs {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
 
 //loader
 .cubes {
@@ -319,5 +520,27 @@ export default {
 
 .item:nth-child(6):after {
   color: #ffda77;
+}
+.badge{
+  background-color: blue;
+  padding: 5px 10px;
+  margin: 5px;
+}
+.badge-off{
+  background-color: rgb(210, 32, 19);
+  padding: 5px 10px;
+  margin: 5px;
+}
+.orari-container{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  max-width: 900px;
+}
+.center-orari{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

@@ -8,22 +8,27 @@ export default {
   data() {
     return {
       state,
-      arrProduct: [],
-      arrCategory: [],
+
+
       arrTimesSlot: [],
       arrTimesSlotApi: [],
+
       categoryId: 0,
       totCart: 0,
+
       name: "",
       phone: "",
+      idate:'',
       timeSlot: "",
+
       nameError: "",
       phoneError: "",
       timeError: "",
+      dateError: "",
+
       isValid: true,
       loading: false,
       succes: false,
-      idate:'',
       DeltaMinuti: 10,
     };
   },
@@ -43,7 +48,7 @@ export default {
     },
 
     order_validations() {
-      // this.isValid = true;
+       this.isValid = true;
 
       if (!this.name) {
         this.nameError = "Il campo 'nome' è richiesto!";
@@ -57,15 +62,19 @@ export default {
       }
 
       if (!this.phone) {
-        this.phoneError = "Il campo 'N° telefono' è richiesto!";
+        this.phoneError = "Il campo 'N° 'telefono' è richiesto!";
         this.isValid = false;
       }
       // modificare quando verrà cambiato il tipo di dato per il telefono (numerico)
       else if (this.phone.length !== 10) {
-        this.phoneError = "Il campo 'N° telefono' deve essere di 10 cifre!";
+        this.phoneError = "Il campo 'N° 'telefono' deve essere di 10 cifre!";
         this.isValid = false;
       }
 
+      if (!this.idate) {
+        this.dateError = "Seleziona una data!" ;
+        this.isValid = false;
+      }
       if (!this.timeSlot) {
         this.timeError = "Seleziona una fascia oraria!";
         this.isValid = false;
@@ -88,6 +97,7 @@ export default {
         let data = {
           name: this.name,
           phone: this.phone,
+          date: this.idate,
           time: this.timeSlot,
           arrId: JSON.stringify(this.state.arrId),
           arrQt: JSON.stringify(this.state.arrQt),
@@ -102,7 +112,13 @@ export default {
         });
         this.name = "";
         this.phone = "";
+        this.idate = "";
         this.timeSlot = "";
+        this.state.arrId= [];
+        this.state.arrQt= [];
+        this.state.arrCart= [];
+        this.arrTimesSlot= [];
+        this.arrTimesSlotApi= [];
       }
     },
 
@@ -131,7 +147,7 @@ export default {
     inputTime(time, id){
       this.arrTimesSlot.forEach((element, i) => {
         if(element.id == 'active'){
-          element.id = i
+          element.id = i + 1
         }
         
       });
@@ -141,8 +157,8 @@ export default {
         }
         
       });
-      this.time_slot = time;
-      console.log(this.time_slot)
+      this.timeSlot = time;
+      
     },
 
     checkData(i){
@@ -282,7 +298,10 @@ export default {
         />
         <div v-if="phoneError" id="phoneError">{{ phoneError }}</div>
       </div>
-      <input type="date" v-model="idate" @input="checkData(idate)" id="">
+      <div>
+        <input type="date" v-model="idate" @input="checkData(idate)" id="">
+        <div v-if="dateError" id="dateError">{{ dateError }}</div>
+      </div>
       <div class="orari-container">
         <!-- <select name="times" id="times" v-model="timeSlot">
           <option value="">Seleziona una fascia oraria</option>
@@ -301,7 +320,7 @@ export default {
          <div v-if="timeError" id="timeError">{{ timeError }}</div>
       </div>
 
-      <div id="timeError"></div> 
+
       <span v-if="!loading" @click="sendOrder()" class="btn">Invia</span>
     </div>
     <div v-if="loading" class="loop cubes">
