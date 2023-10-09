@@ -137,6 +137,9 @@
     },
     created(){
       this.getProduct(0);
+
+     
+      this.state.actvPage = 5;
     },
 
   }

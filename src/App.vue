@@ -1,22 +1,20 @@
 <script >
   
-  import AppHeader from './components/AppHeader.vue'
-  import AppFooter from './components/AppFooter.vue'
+  import AppNav from './components/AppNav.vue'
+
 
   export default {
-  components:{ AppFooter, AppHeader }
+  components:{  AppNav }
   }
 </script>
 
 <template>
 
-    <div class="app">
-      <div class="small-cont">
-        <AppHeader />
-        <router-view></router-view>
-      </div>
-      <AppFooter />
-    </div>
+  <div class="container">
+    <AppNav />
+    <router-view class="page"></router-view>
+  </div>
+ 
 
   
 </template>
@@ -24,63 +22,39 @@
 <style lang="scss">
 @use './assets/styles/general.scss' as *;
 body{
-  background-color: black;
+  background-color: $c-bg;
 }
 
-
-  .app{    
-  height: 100%;
+.container{
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  color: $c-white;
-
-  .small-cont{
-      min-height: 85vh;
-      @include dfj;
-      flex-direction: column;
-      gap: .3em;    
-      padding-top: 1rem;
-      margin: 0 auto;
-      max-width: 1150px;
-    }
-  }
-
-// @media (max-width:650px) {
-
-//   .app{
-//     background-size: 100% 100vh!important;
-    
-//   }
-  
-//}
-
-@media (max-width:1000px) {
-    html::before {
-      content: ' ';
-      display: block;
-      background-image: url('./assets/img/pizza-1.png');
-      background-position: center; 
-      
-      background-size: cover;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      position: fixed;
-      z-index: -10; 
-  }
-  .app{
-    background-image: none!important;
-  }
+  justify-content: flex-end;
+  padding: 0;
 }
+.page{
+    // position: fixed;
+    // top: 0;
+    // right: 0;
+    width: 70%;
+    padding: 0 2rem ;
+    overflow: auto;
+}
+
+body::-webkit-scrollbar{
+  width: 10px;
+}
+
+
+
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: $c-header;
+}
+body::-webkit-scrollbar-thumb:hover {
+  border-radius: 20px;
+  background-color: $c-nav-link;
+  border: 2px solid $c-header;
+    
+}
+
 </style>

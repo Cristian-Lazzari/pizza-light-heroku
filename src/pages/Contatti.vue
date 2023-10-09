@@ -11,6 +11,9 @@
             
         }
     },
+    created(){
+      this.state.actvPage = 4;
+    }
     
   }
 </script>

@@ -196,7 +196,9 @@ export default {
   },
   created() {
    
-    this.getTimesSlots()
+    this.getTimesSlots();
+
+    this.state.actvPage = 6;
   },
 };
 </script>

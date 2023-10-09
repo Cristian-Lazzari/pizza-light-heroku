@@ -7,6 +7,7 @@ export const state = reactive({
     arrId:[],
     arrQt:[],
     setting:[],
+    actvPage: 1,
     baseUrl: 'http://127.0.0.1:8000/',
     getImageUrl(image) {
 		return image

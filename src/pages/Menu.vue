@@ -1,9 +1,10 @@
 <script >
   import {state} from '../state.js';
   import axios from 'axios'
+ 
 
   export default {
-  components:{  },
+
 
     data(){
         return{     
@@ -50,6 +51,9 @@
     created(){
       this.getProduct(0);
       this.getCategory();
+
+
+      this.state.actvPage = 2;
     },
 
   }
